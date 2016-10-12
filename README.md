@@ -1,0 +1,2 @@
+# XinZhi
+Frontend for XinZhi
