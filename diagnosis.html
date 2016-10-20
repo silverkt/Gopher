@@ -47,7 +47,7 @@ window.onresize=function(){
 } 
     </script>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -70,19 +70,19 @@ window.onresize=function(){
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              项目列表 <i class="fa fa-th"></i>
+              系统选择 <i class="fa fa-th"></i>
               <span class="label label-warning">4</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">项目列表</li>
+              <li class="header">系统列表</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li><!-- start message -->
-                    <a href="#">
+                    <a href="maintain.html">
                       
                       <h4>
-                        腾讯上海云数据中心
+                       维护系统
                         <small><i class="fa fa-eye"></i> 点击查看</small>
                       </h4>
                       <!--<p>Why not buy a new awesome theme?</p> -->
@@ -90,30 +90,30 @@ window.onresize=function(){
                   </li>
                   <!-- end message -->
                   <li>
-                    <a href="#">
+                    <a href="diagnosis.html">
                        
                       <h4>
-                        山明七修泛能站
+                       诊断系统
                         <small><i class="fa fa-eye"></i> 点击查看</small>
                       </h4>
                       <!--<p>Why not buy a new awesome theme?</p> -->
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="operation.html">
                       
                       <h4>
-                        南汇智城泛能站
+                       运营系统
                         <small><i class="fa fa-eye"></i> 点击查看</small>
                       </h4>
                     <!--  <p>Why not buy a new awesome theme?</p>  -->
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a href="display.html">
                       
                       <h4>
-                        亭湖医院泛能站
+                        展示系统
                         <small><i class="fa fa-eye"></i> 点击查看</small>
                       </h4>
                     <!--  <p>Why not buy a new awesome theme?</p>  -->
@@ -156,9 +156,7 @@ window.onresize=function(){
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+           
         </ul>
       </div>
     </nav>
@@ -189,30 +187,15 @@ window.onresize=function(){
         </div>
       </form>
     -->
-     <ul class="sidebar-menu">    
-      
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-th"></i> <span>项目列表</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>山明七修泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>南汇智城泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
-          </ul>
-        </li>
-        </ul>     
+ 
+
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">项目维护面板导航</li>
+        <li class="header">项目诊断面板导航</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>工程概况</span>
+            <i class="fa fa-dashboard"></i> <span>项目概览</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -225,7 +208,7 @@ window.onresize=function(){
         <li class="treeview">
           <a href="#">
             <i class="fa fa-bell-o"></i>
-            <span>报警</span>
+            <span>故障统计</span>
             <span class="pull-right-container">
               <span class="label label-danger pull-right">4</span>
             </span>
@@ -239,41 +222,41 @@ window.onresize=function(){
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-table"></i> <span>报表</span>
+            <i class="fa fa-table"></i> <span>日志查询</span>
              
           </a>
         </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
-            <span>趋势曲线</span>
+            <span>处理记录</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> 热能</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 电能</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 风能</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 优先</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 一般</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 滞后</a></li>
              
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-laptop"></i>
-            <span>系统网络</span>
+            <span>系统管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> 外围</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 核心</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 修改密码</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 修改资料</a></li>
              
           </ul>
         </li>
          
-        <li><a href="#"><i class="fa fa-book"></i> <span>策略调试</span></a></li>
+        
     
       </ul>
     </section>
@@ -284,14 +267,14 @@ window.onresize=function(){
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+      <!--<h1>
         维护面板
         <small>工程概况</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-home"></i> 首页</a></li>
         <li class="active">腾讯上海云数据中心</li>
-      </ol>
+      </ol>-->
     </section>
 
     <!-- Main content -->
@@ -304,12 +287,12 @@ window.onresize=function(){
             <div class="inner">
               <h3>维护系统</h3>
 
-              <p>您可以通过这个选项查看到工程的概况</p>
+              <p>您可以通过这个系统查看到工程的概况及维护</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-cog"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="maintain.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -319,12 +302,12 @@ window.onresize=function(){
             <div class="inner">
               <h3>诊断系统</h3>
 
-              <p>您可以通过这个选项看到项目的相关报表</p>
+              <p>您可以通过这个系统进行相应的诊断操作</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-pulse-strong"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="diagnosis.html" class="small-box-footer">点击进入系统<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -334,12 +317,12 @@ window.onresize=function(){
             <div class="inner">
               <h3>运营系统</h3>
 
-              <p>您可以通过这个选项看到项目的相关趋势</p>
+              <p>您可以通过这个系统看到项目的相关运营情况</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-stalker"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="operation.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -349,12 +332,12 @@ window.onresize=function(){
             <div class="inner">
               <h3>展示系统</h3>
 
-              <p>您可以通过这个选项看到项目的相关报警信息</p>
+              <p>您可以通过这个系统看到项目的相关展示</p>
             </div>
             <div class="icon">
               <i class="ion ion-monitor"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="display.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -372,7 +355,7 @@ window.onresize=function(){
             </ul>
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
-              <iframe src="test/remote.html" id="myiframe" scrolling="no" onload="changeFrameHeight()" frameborder="0"></iframe>
+             <img src="test/u3.jpg" style="width:1440px; margin-left:20px; margin-bottom:20px;">
             </div>
           </div>
           </section>
@@ -390,7 +373,7 @@ window.onresize=function(){
     <div class="pull-right hidden-xs">
       <b>2016.8.5</b>  &nbsp;&nbsp; 16:00PM  &nbsp;&nbsp; 星期五
     </div>
-  <i class="glyphicon glyphicon-transfer" style="color:lightgreen;"></i>   <strong style="color:green;"> 通讯正常       </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;三联能源站一次冷水回路工艺系统
+  <i class="glyphicon glyphicon-transfer" style="color:lightgreen;"></i>   <strong style="color:green;"> 通讯正常       </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新奥集团
   </footer>
 
    
