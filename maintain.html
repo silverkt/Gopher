@@ -196,18 +196,18 @@ window.onresize=function(){
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>肇庆新区泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>黄花机场泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>株洲神农城泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>中德2#泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>株洲职教城泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>振西商贸广场泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
+          <ul  id="proj" class="treeview-menu">
+            <li  class="active"><a href="#" atarget="http://10.20.1.160/front/xz/test/remote.html"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
+            <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html" ><i class="fa fa-circle-o"></i>肇庆新区泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>黄花机场泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>株洲神农城泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>中德2#泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>株洲职教城泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>振西商贸广场泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
             
           </ul>
         </li>
@@ -230,23 +230,22 @@ window.onresize=function(){
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-bell-o"></i>
+            <i class="fa fa-gear"></i>
             <span>配置管理</span>
-            <span class="pull-right-container">
-              <span class="label label-danger pull-right">4</span>
-            </span>
+            
           </a>
+            <!--
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i>危险</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>警告</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i>一般</a></li>
              
-          </ul>
+          </ul> -->
         </li>
          
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
+            <i class="fa fa-gears"></i>
             <span>系统管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -422,5 +421,25 @@ window.onresize=function(){
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script>
+
+$('#proj li').click(function() {
+  $('#proj li').removeClass("active");
+    
+// 找出 li 中的超链接 href(#id)
+var $this = $(this);
+    $this.addClass("active");
+_clickTab = $this.find('a').attr('atarget'); // 找到链接a中的targer的值
+var $jd = {"src":_clickTab};
+ $("#myiframe").prop($jd);    
+    
+$.get(_clickTab,function(data){
+//$("#iframe").html(data); 
+   
+});
+});
+   
+</script>    
+    
 </body>
 </html>
