@@ -37,12 +37,15 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
       <script>
+          //动态更改页面中iframe大小
           function changeFrameHeight(){
     var ifm= document.getElementById("myiframe"); 
-    ifm.height=document.documentElement.clientHeight;
+    ifm.height=document.documentElement.clientHeight-210;
     
 }
+         
 window.onresize=function(){  
+    
      changeFrameHeight();  
 } 
     </script>
@@ -50,23 +53,46 @@ window.onresize=function(){
     
     
     <script>
+        //动态更改遮罩层iframe大小
           function changenew(){
     var ifm= document.getElementById("newiframe"); 
-    ifm.height=document.documentElement.clientHeight;
+    ifm.height=document.documentElement.clientHeight-50;
     ifm.width=document.documentElement.clientWidth;
 }
 window.onresize=function(){  
      changenew();  
 } 
     </script>
+    
+    
+    <script>
+        //监听F11事件，动态调整页面大小，避免出现滚动条
+        //监听esc事件，关闭遮罩层
+        document.onkeyup = function(){
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if(e && e.keyCode == 122) {
+                
+                changeFrameHeight();  
+                changenew(); 
+            }
+             if(e && e.keyCode == 27) {
+                
+               hideMask();
+            }
+        }
+    </script>
 <style type="text/css">     
     .mask {       
             position: absolute; top: 0px;   background-color: #fff;     
             z-index: 10002; left: 0px; 
             overflow: hidden;
+            display: none;
               
         }     
 </style> 
+    
+    
+    
     
     
     
@@ -93,6 +119,29 @@ window.onresize=function(){
    
 </script>
     
+    
+<style type="text/css">     
+    .newnavi {       
+            position: absolute; top: 50px;   background-color: #efefef;  
+            border-bottom-color: #999;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            z-index: 1000; left: 0px; 
+            overflow: hidden;
+            display: block;
+            padding: 20px;
+            padding-bottom: 0px;
+            
+            width: 100%;
+              
+        } 
+    .newnavi {
+        display: none;
+    }
+    
+    
+</style>     
+    
    
     
 </head>
@@ -118,61 +167,11 @@ window.onresize=function(){
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle flip"   >  <!-- <a href="#" class="dropdown-toggle flip" data-toggle="dropdown" >  -->
               系统选择 <i class="fa fa-th"></i>
               <span class="label label-warning">4</span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">系统列表</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="maintain.html">
-                      
-                      <h4>
-                       维护系统
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                      <!--<p>Why not buy a new awesome theme?</p> -->
-                    </a>
-                  </li>
-                  <!-- end message -->
-                  <li>
-                    <a href="diagnosis.html">
-                       
-                      <h4>
-                       诊断系统
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                      <!--<p>Why not buy a new awesome theme?</p> -->
-                    </a>
-                  </li>
-                  <li>
-                    <a href="operation.html">
-                      
-                      <h4>
-                       运营系统
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                    <!--  <p>Why not buy a new awesome theme?</p>  -->
-                    </a>
-                  </li>
-                  <li>
-                    <a href="display.html">
-                      
-                      <h4>
-                        展示系统
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                    <!--  <p>Why not buy a new awesome theme?</p>  -->
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-             <!-- <li class="footer"><a href="#">See All Messages</a></li> -->
-            </ul>
+             
           </li>
           
           <!-- User Account: style can be found in dropdown.less -->
@@ -257,6 +256,7 @@ window.onresize=function(){
               <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
               <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
               <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
+               
             
           </ul>
         </li>
@@ -333,7 +333,72 @@ window.onresize=function(){
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-       
+     <div class="newnavi">
+    
+         <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>运行维护</h3>
+
+              <p>实时查看项目运行工况，辅助工艺维护</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-cog"></i>
+            </div>
+            <a href="maintain.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>IT诊断</h3>
+
+              <p>实时查看项目IT设施状态，辅助诊断服务</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-pulse-strong"></i>
+            </div>
+            <a href="diagnosis.html" class="small-box-footer">点击进入系统<i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>运营管理</h3>
+
+              <p>通过数据分析，运行报表查看项目运营状况</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-stalker"></i>
+            </div>
+            <a href="operation.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box" style="background-color:#6ebb2c;color:#fff;">
+            <div class="inner">
+              <h3>能源展示</h3>
+
+              <p>分层展示站网级，区域级，全国级运营项目</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-monitor"></i>
+            </div>
+            <a href="display.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+         
+    </div>   
       <!-- /.row -->
       <!-- Main row -->
         
@@ -352,7 +417,7 @@ window.onresize=function(){
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
              <!-- <iframe src="test/remote.html" id="myiframe" scrolling="no" onload="changeFrameHeight()" frameborder="0"></iframe> -->
-                 <iframe src="test/remote.html" id="myiframe" scrolling="yes" style="width:100%;"   frameborder="0"></iframe>
+                 <iframe src="test/remote.html" id="myiframe" scrolling="yes" style="width:100%;"   onload="changeFrameHeight()"  frameborder="0"></iframe>
             </div>
           </div>
           </section>
@@ -437,10 +502,11 @@ $.get(_clickTab,function(data){
     
      <script>
         
-        $(window).load(function(){        
-        $("#mask").hide();
-    });
-         
+      
+$(".flip").click(function(){
+    $(".newnavi").slideToggle("fast");
+  });
+   
     
     </script>
     
