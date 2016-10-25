@@ -1,0 +1,30 @@
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<ul class="list-side">
+<li><a target="remote.html" >remote</a></li>
+<li><a target="f11.html" >test</a></li>
+<li><a target="http://10.20.1.160/front/xz/operation.html" >product</a></li>
+<li><a href="http://ucmic.blogspot.com/" target="_blank" >contact</a></li>
+</ul>
+ 
+<div id="iframe">
+<!--jquery 插入html 位址-->
+</div>
+
+
+<script>
+
+//$(document).ready(function(){ 
+//$.get("remote.html",function(data){ //初始將a.html include div#iframe
+//$("#iframe").html(data);
+//}); 
+$(function(){
+$('.list-side li').click(function() {
+// 找出 li 中的超链接 href(#id)
+var $this = $(this),
+_clickTab = $this.find('a').attr('target'); // 找到链接a中的targer的值
+$.get(_clickTab,function(data){
+$("#iframe").html(data); 
+});
+});
+});
+        </script>

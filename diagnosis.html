@@ -9,9 +9,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="//cdn.bootcss.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -37,17 +37,115 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
       <script>
+          //动态更改页面中iframe大小
           function changeFrameHeight(){
     var ifm= document.getElementById("myiframe"); 
-    ifm.height=document.documentElement.clientHeight;
-    ifm.width=1630;
+    ifm.height=document.documentElement.clientHeight-210;
+    
 }
+         
 window.onresize=function(){  
+    
      changeFrameHeight();  
 } 
     </script>
+    
+    
+    
+    <script>
+        //动态更改遮罩层iframe大小
+          function changenew(){
+    var ifm= document.getElementById("newiframe"); 
+    ifm.height=document.documentElement.clientHeight;
+    ifm.width=document.documentElement.clientWidth;
+}
+window.onresize=function(){  
+     changenew();  
+} 
+    </script>
+    
+    
+    <script>
+        //监听F11事件，动态调整页面大小，避免出现滚动条
+        //监听esc事件，关闭遮罩层
+        document.onkeyup = function(event){
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if(e && e.keyCode == 122) {
+                
+                changeFrameHeight();  
+                changenew(); 
+            }
+             if(e && e.keyCode == 27) {
+                
+               hideMask();
+            }
+        }
+    </script>
+<style type="text/css">     
+    .mask {       
+            position: absolute; top: 0px;   background-color: #fff;     
+            z-index: 10002; left: 0px; 
+            overflow: hidden;
+            display: none;
+              
+        }     
+</style> 
+    
+    
+    
+    
+    
+    
+    <script type="text/javascript">   
+    //兼容火狐、IE8 
+    //显示遮罩层  
+    function showMask(){   
+        
+        $sc = $("#myiframe").prop("src"); 
+        var $jsn = {"src":$sc};
+        $("#newiframe").prop($jsn); 
+         changenew();  
+        $("#mask").css("height",$(document).height());   
+        $("#mask").css("width",$(document).width());   
+        $("#mask").show(); 
+       
+        
+    }
+    //隐藏遮罩层
+    function hideMask(){   
+        
+        $("#mask").hide();   
+    }
+   
+</script>
+    
+    
+<style type="text/css">     
+    .newnavi {       
+            position: absolute; top: 50px;   background-color: #efefef;  
+            border-bottom-color: #999;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            z-index: 1000; left: 0px; 
+            overflow: hidden;
+            display: block;
+            padding: 20px;
+            padding-bottom: 0px;
+            
+            width: 100%;
+              
+        } 
+    .newnavi {
+        display: none;
+    }
+    
+    
+</style>     
+    
+   
+    
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -69,61 +167,11 @@ window.onresize=function(){
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              项目列表 <i class="fa fa-th"></i>
+            <a href="#" class="dropdown-toggle flip"   >  <!-- <a href="#" class="dropdown-toggle flip" data-toggle="dropdown" >  -->
+              系统选择 <i class="fa fa-th"></i>
               <span class="label label-warning">4</span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">项目列表</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      
-                      <h4>
-                        腾讯上海云数据中心
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                      <!--<p>Why not buy a new awesome theme?</p> -->
-                    </a>
-                  </li>
-                  <!-- end message -->
-                  <li>
-                    <a href="#">
-                       
-                      <h4>
-                        山明七修泛能站
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                      <!--<p>Why not buy a new awesome theme?</p> -->
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      
-                      <h4>
-                        南汇智城泛能站
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                    <!--  <p>Why not buy a new awesome theme?</p>  -->
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      
-                      <h4>
-                        亭湖医院泛能站
-                        <small><i class="fa fa-eye"></i> 点击查看</small>
-                      </h4>
-                    <!--  <p>Why not buy a new awesome theme?</p>  -->
-                    </a>
-                  </li>
-                  
-                </ul>
-              </li>
-             <!-- <li class="footer"><a href="#">See All Messages</a></li> -->
-            </ul>
+             
           </li>
           
           <!-- User Account: style can be found in dropdown.less -->
@@ -156,9 +204,7 @@ window.onresize=function(){
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+           
         </ul>
       </div>
     </nav>
@@ -191,28 +237,37 @@ window.onresize=function(){
     -->
      <ul class="sidebar-menu">    
       
-        <li class="treeview">
+        <li class="active treeview">
           <a href="#">
             <i class="fa fa-th"></i> <span>项目列表</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i>山明七修泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>南汇智城泛能站</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
+          <ul  id="proj" class="treeview-menu">
+            <li  class="active"><a href="#" atarget="http://10.20.1.160/front/xz/test/zhenduan.html"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
+            <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html" ><i class="fa fa-circle-o"></i>肇庆新区泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>黄花机场泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>株洲神农城泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>中德2#泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>株洲职教城泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>振西商贸广场泛能站</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
+              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
+               
+            
           </ul>
         </li>
         </ul>     
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">项目维护面板导航</li>
+       <ul class="sidebar-menu">
+        <li class="header">项目诊断面板导航</li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>工程概况</span>
+            <i class="fa fa-dashboard"></i> <span>项目概览</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -224,8 +279,8 @@ window.onresize=function(){
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-bell-o"></i>
-            <span>报警</span>
+            <i class="fa fa-bar-chart-o"></i>
+            <span>故障统计</span>
             <span class="pull-right-container">
               <span class="label label-danger pull-right">4</span>
             </span>
@@ -239,41 +294,41 @@ window.onresize=function(){
         </li>
         <li>
           <a href="#">
-            <i class="fa fa-table"></i> <span>报表</span>
+            <i class="fa fa-table"></i> <span>日志查询</span>
              
           </a>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>趋势曲线</span>
+            <i class="fa fa-edit"></i>
+            <span>处理记录</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> 热能</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 电能</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 风能</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 优先</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 一般</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 滞后</a></li>
              
           </ul>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>系统网络</span>
+            <i class="fa fa-gears"></i>
+            <span>系统管理</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> 外围</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> 核心</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 修改密码</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> 修改资料</a></li>
              
           </ul>
         </li>
          
-        <li><a href="#"><i class="fa fa-book"></i> <span>策略调试</span></a></li>
+        
     
       </ul>
     </section>
@@ -283,8 +338,8 @@ window.onresize=function(){
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
+      <!--<section class="content-header">
+    <h1>
         维护面板
         <small>工程概况</small>
       </h1>
@@ -292,24 +347,26 @@ window.onresize=function(){
         <li><a href="#"><i class="fa fa-home"></i> 首页</a></li>
         <li class="active">腾讯上海云数据中心</li>
       </ol>
-    </section>
+    </section>-->
 
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
+     <div class="newnavi">
+    
+         <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>维护系统</h3>
+              <h3>运行维护</h3>
 
-              <p>您可以通过这个选项查看到工程的概况</p>
+              <p>实时查看项目运行工况，辅助工艺维护</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-cog"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="maintain.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -317,14 +374,14 @@ window.onresize=function(){
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>诊断系统</h3>
+              <h3>IT诊断</h3>
 
-              <p>您可以通过这个选项看到项目的相关报表</p>
+              <p>实时查看项目IT设施状态，辅助诊断服务</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-pulse-strong"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="diagnosis.html" class="small-box-footer">点击进入系统<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -332,14 +389,14 @@ window.onresize=function(){
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>运营系统</h3>
+              <h3>运营管理</h3>
 
-              <p>您可以通过这个选项看到项目的相关趋势</p>
+              <p>通过数据分析，运行报表查看项目运营状况</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-stalker"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="operation.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -347,20 +404,25 @@ window.onresize=function(){
           <!-- small box -->
           <div class="small-box" style="background-color:#6ebb2c;color:#fff;">
             <div class="inner">
-              <h3>展示系统</h3>
+              <h3>能源展示</h3>
 
-              <p>您可以通过这个选项看到项目的相关报警信息</p>
+              <p>分层展示站网级，区域级，全国级运营项目</p>
             </div>
             <div class="icon">
               <i class="ion ion-monitor"></i>
             </div>
-            <a href="#" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="display.html" class="small-box-footer">点击进入系统 <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
       </div>
+         
+    </div>   
       <!-- /.row -->
       <!-- Main row -->
+        
+        <div id="mask" class="mask"><!--<span class="pull-right header"><a class="btn btn-danger" href="javascript:;" onclick="hideMask()" >退出全屏</a></span>--><iframe id="newiframe" width="0" height="0"></iframe></div>  
+
       <div class="row">
            <section class="col-lg-12 connectedSortable">
           <!-- Custom tabs (Charts with tabs)-->
@@ -369,10 +431,12 @@ window.onresize=function(){
             <ul class="nav nav-tabs pull-right">
               
               <li class="pull-left header"><i class="fa fa-inbox"></i> 概况</li>
+                <li class="pull-right header"><a href="javascript:;" onclick="showMask()" ><i class="fa fa-arrows-alt"></i></a></li>
             </ul>
             <div class="tab-content no-padding">
               <!-- Morris chart - Sales -->
-              <iframe src="test/remote.html" id="myiframe" scrolling="no" onload="changeFrameHeight()" frameborder="0"></iframe>
+             <!-- <iframe src="test/remote.html" id="myiframe" scrolling="no" onload="changeFrameHeight()" frameborder="0"></iframe> -->
+                 <iframe src="test/zhenduan.html" id="myiframe" scrolling="yes" style="width:100%;"   onload="changeFrameHeight()"  frameborder="0"></iframe>
             </div>
           </div>
           </section>
@@ -388,9 +452,9 @@ window.onresize=function(){
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>2016.8.5</b>  &nbsp;&nbsp; 16:00PM  &nbsp;&nbsp; 星期五
+      <b> </b>  &nbsp;&nbsp;  &nbsp;&nbsp;  
     </div>
-  <i class="glyphicon glyphicon-transfer" style="color:lightgreen;"></i>   <strong style="color:green;"> 通讯正常       </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;三联能源站一次冷水回路工艺系统
+  <i class="glyphicon glyphicon-transfer" style="color:lightgreen;"></i>   <strong style="color:green;">       </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新奥集团
   </footer>
 
    
@@ -400,7 +464,7 @@ window.onresize=function(){
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -408,7 +472,7 @@ window.onresize=function(){
 <!-- Bootstrap 3.3.6 -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="assets/raphael-min.js"></script>
 <script src="plugins/morris/morris.min.js"></script>
 <!-- Sparkline -->
 <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
@@ -418,7 +482,7 @@ window.onresize=function(){
 <!-- jQuery Knob Chart -->
 <script src="plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="assets/moment.min.js"></script>
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
@@ -434,5 +498,53 @@ window.onresize=function(){
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script>
+
+$('#proj li').click(function() {
+  $('#proj li').removeClass("active");
+    
+// 找出 li 中的超链接 href(#id)
+var $this = $(this);
+    $this.addClass("active");
+_clickTab = $this.find('a').attr('atarget'); // 找到链接a中的targer的值
+var $jd = {"src":_clickTab};
+ $("#myiframe").prop($jd);    
+    
+$.get(_clickTab,function(data){
+//$("#iframe").html(data); 
+   
+});
+});
+   
+</script>
+    
+    
+     <script>
+        
+      
+$(".flip").click(function(){
+    $(".newnavi").slideToggle("fast");
+  });
+        
+$("#debug").click(function(){
+    $sc = $("#myiframe").prop("src"); 
+    $str = "open the debug tool of "+$sc;
+     $inde = $('#proj li[class="active"]');
+    $ind = $('#proj li').index($inde);
+    $str = "open the debug tool of ID ="+$ind;
+    alert($str);
+});
+   
+    
+    </script>
+    
+ <script>
+    
+$(".newnavi").mouseleave(function(){
+   $(".newnavi").slideToggle("fast");
+})         
+
+    </script>   
+    
 </body>
 </html>
