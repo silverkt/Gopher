@@ -36,116 +36,15 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-      <script>
-          //动态更改页面中iframe大小
-          function changeFrameHeight(){
-    var ifm= document.getElementById("myiframe"); 
-    ifm.height=document.documentElement.clientHeight-210;
-    
-}
-         
-window.onresize=function(){  
-    
-     changeFrameHeight();  
-} 
-    </script>
     
     
-    
-    <script>
-        //动态更改遮罩层iframe大小
-          function changenew(){
-    var ifm= document.getElementById("newiframe"); 
-    ifm.height=document.documentElement.clientHeight;
-    ifm.width=document.documentElement.clientWidth;
-}
-window.onresize=function(){  
-     changenew();  
-} 
-    </script>
-    
-    
-    <script>
-        //监听F11事件，动态调整页面大小，避免出现滚动条
-        //监听esc事件，关闭遮罩层
-        document.onkeyup = function(event){
-            var e = event || window.event || arguments.callee.caller.arguments[0];
-            if(e && e.keyCode == 122) {
-                
-                changeFrameHeight();  
-                changenew(); 
-            }
-             if(e && e.keyCode == 27) {
-                
-               hideMask();
-            }
-        }
-    </script>
-<style type="text/css">     
-    .mask {       
-            position: absolute; top: 0px;   background-color: #fff;     
-            z-index: 10002; left: 0px; 
-            overflow: hidden;
-            display: none;
-              
-        }     
-</style> 
-    
-    
-    
-    
-    
-    
-    <script type="text/javascript">   
-    //兼容火狐、IE8 
-    //显示遮罩层  
-    function showMask(){   
-        
-        $sc = $("#myiframe").prop("src"); 
-        var $jsn = {"src":$sc};
-        $("#newiframe").prop($jsn); 
-         changenew();  
-        $("#mask").css("height",$(document).height());   
-        $("#mask").css("width",$(document).width());   
-        $("#mask").show(); 
-       
-        
-    }
-    //隐藏遮罩层
-    function hideMask(){   
-        
-        $("#mask").hide();   
-    }
-   
-</script>
-    
-    
-<style type="text/css">     
-    .newnavi {       
-            position: absolute; top: 50px;   background-color: #efefef;  
-            border-bottom-color: #999;
-            border-bottom-style: solid;
-            border-bottom-width: 1px;
-            z-index: 1000; left: 0px; 
-            overflow: hidden;
-            display: block;
-            padding: 20px;
-            padding-bottom: 0px;
-            
-            width: 100%;
-              
-        } 
-    .newnavi {
-        display: none;
-    }
-    
-    
-</style>     
+  <script src="assets/xzbaseheader.js"></script>
+  <link rel="stylesheet" href="assets/xzbase.css"> 
     
    
     
 </head>
-<body class="hold-transition skin-green-light sidebar-mini">
+<body class="hold-transition skin-green-light sidebar-mini" id="getfocus">
 <div class="wrapper">
 
   <header class="main-header">
@@ -245,17 +144,17 @@ window.onresize=function(){
             </span>
           </a>
           <ul  id="proj" class="treeview-menu">
-            <li  class="active"><a href="#" atarget="http://10.20.1.160/front/xz/test/zhenduan.html"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
-            <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html" ><i class="fa fa-circle-o"></i>肇庆新区泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>黄花机场泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>株洲神农城泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>中德2#泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>株洲职教城泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>振西商贸广场泛能站</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m3.html"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m4.html"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
-              <li><a href="#" atarget="http://10.20.1.160/front/xz/test/m2.html"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
+            <li  class="active"><a href="#" atarget="test/zhenduan.html"><i class="fa fa-circle-o"></i>腾讯上海云数据中心</a></li>
+            <li><a href="#" atarget="test/m2.html" ><i class="fa fa-circle-o"></i>肇庆新区泛能站</a></li>
+              <li><a href="#" atarget="test/m3.html"><i class="fa fa-circle-o"></i>黄花机场泛能站</a></li>
+              <li><a href="#" atarget="test/m4.html"><i class="fa fa-circle-o"></i>亭湖医院泛能站</a></li>
+              <li><a href="#" atarget="test/m3.html"><i class="fa fa-circle-o"></i>株洲神农城泛能站</a></li>
+              <li><a href="#" atarget="test/m2.html"><i class="fa fa-circle-o"></i>中德2#泛能站</a></li>
+              <li><a href="#" atarget="test/m4.html"><i class="fa fa-circle-o"></i>株洲职教城泛能站</a></li>
+              <li><a href="#" atarget="test/m2.html"><i class="fa fa-circle-o"></i>振西商贸广场泛能站</a></li>
+              <li><a href="#" atarget="test/m3.html"><i class="fa fa-circle-o"></i>海宁航海国际项目</a></li>
+              <li><a href="#" atarget="test/m4.html"><i class="fa fa-circle-o"></i>新朝阳泛能微网</a></li>
+              <li><a href="#" atarget="test/m2.html"><i class="fa fa-circle-o"></i>蚌埠大明产业园</a></li>
                
             
           </ul>
@@ -496,55 +395,8 @@ window.onresize=function(){
 <script src="dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+    <script src="assets/xzbasefooter.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<script>
-
-$('#proj li').click(function() {
-  $('#proj li').removeClass("active");
-    
-// 找出 li 中的超链接 href(#id)
-var $this = $(this);
-    $this.addClass("active");
-_clickTab = $this.find('a').attr('atarget'); // 找到链接a中的targer的值
-var $jd = {"src":_clickTab};
- $("#myiframe").prop($jd);    
-    
-$.get(_clickTab,function(data){
-//$("#iframe").html(data); 
-   
-});
-});
-   
-</script>
-    
-    
-     <script>
-        
-      
-$(".flip").click(function(){
-    $(".newnavi").slideToggle("fast");
-  });
-        
-$("#debug").click(function(){
-    $sc = $("#myiframe").prop("src"); 
-    $str = "open the debug tool of "+$sc;
-     $inde = $('#proj li[class="active"]');
-    $ind = $('#proj li').index($inde);
-    $str = "open the debug tool of ID ="+$ind;
-    alert($str);
-});
-   
-    
-    </script>
-    
- <script>
-    
-$(".newnavi").mouseleave(function(){
-   $(".newnavi").slideToggle("fast");
-})         
-
-    </script>   
-    
+  
 </body>
 </html>

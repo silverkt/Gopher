@@ -1,0 +1,31 @@
+ /* 全页遮罩层 盛放iframe */
+    .mask {       
+            position: absolute; top: 0px;   background-color: #fff;     
+            z-index: 10002; left: 0px; 
+            overflow: hidden;
+            display: none;
+              
+        }     
+
+    
+ /* 全页导航栏 盛放4个功能系统菜单 采用jq tongle */  
+    .newnavi {       
+            position: absolute; top: 50px;   background-color: #efefef;  
+            border-bottom-color: #999;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            z-index: 1000; left: 0px; 
+            overflow: hidden;
+            display: block;
+            padding: 20px;
+            padding-bottom: 0px;
+            
+            width: 100%;
+              
+        } 
+    .newnavi {
+        display: none;
+    }
+    
+    
+   
