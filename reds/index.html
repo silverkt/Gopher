@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+    <style type="text/css">
+        #leftbar{
+            width: 100px;
+            height: 500px;
+            position: absolute;
+            top:0px;
+            left: 0px;
+            background-color: black;
+            z-index: 1000;
+        }
+        #rightbar{
+            width: 300px;
+            height: 500px;
+            position: absolute;
+            top:0px;
+            right: 0px;
+            
+            z-index: 1000;
+            
+            
+background-image: -moz-linear-gradient(left, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.2) 98%, #FFFFFF 100%); 
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.1)), color-stop(40%, rgba(0, 0, 0, 0.1)), color-stop(98%, rgba(0, 0, 0, 0.2)),color-stop(100%, #FFFFFF));
+background-image: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.1) 0%,  #FFFFFF 100%); 
+background-image: -o-linear-gradient(left, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.2) 98%, #FFFFFF 100%); 
+filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#22FFFFFF', EndColorStr='#33000000'); 
+background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.2) 98%, #FFFFFF 100%); 
+ 
+        }
+    </style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=57723a5de6d4ceb16a7cabae63002a24"></script>
+	<title>地图展示</title>
+</head>
+<body>
+     
+	<div id="allmap"></div>
+     
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");    // 创建Map实例
+	map.centerAndZoom(new BMap.Point(106.404, 39.915), 5.7);  // 初始化地图,设置中心点坐标和地图级别
+	//map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+	//map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    
+    //120.203039,33.396131
+    var marker = new BMap.Marker(new BMap.Point(126.404, 39.915)); // 创建点
+    map.addOverlay(marker);            //增加点
+</script>
