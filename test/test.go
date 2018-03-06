@@ -15,7 +15,7 @@ func Tt() {
 	for i := 0; i < 20; i++ {
 		fmt.Println("this is round" + strconv.Itoa(i))
 		if i == 12 {
-			fmt.Println("twelve is a good girl")
+			fmt.Println("1212 is a good girl")
 		}
 	}
 }
