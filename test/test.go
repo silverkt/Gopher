@@ -3,7 +3,7 @@ testa is a package for my test
 */
 package testa
 import (
-	"fmt";
+	"fmt"
 	"strconv"
 )
 

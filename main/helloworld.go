@@ -1,9 +1,13 @@
 package main
-import "fmt"
-import  "../test"
+import(
+	"fmt"
+	aliasName "../test"
+	myArray "../array"
+)
 
 func main() {
 	fmt.Println("Hello World!")
-	testa.Tt()
-	testa.TestStruct()
+	aliasName.Tt()
+	aliasName.TestStruct()
+	myArray.ShowArray()
 }
