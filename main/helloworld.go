@@ -4,6 +4,7 @@ import(
 	aliasName "../test"
 	myArray "../array"
 	mySlice "../slice"
+	myMap "../map"
 )
 
 func main() {
@@ -12,4 +13,5 @@ func main() {
 	aliasName.TestStruct()
 	myArray.ShowArray()
 	mySlice.ShowSlice()
+	myMap.ShowMap()
 }
