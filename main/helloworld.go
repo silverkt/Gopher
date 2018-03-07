@@ -3,6 +3,7 @@ import(
 	"fmt"
 	aliasName "../test"
 	myArray "../array"
+	mySlice "../slice"
 )
 
 func main() {
@@ -10,4 +11,5 @@ func main() {
 	aliasName.Tt()
 	aliasName.TestStruct()
 	myArray.ShowArray()
+	mySlice.ShowSlice()
 }
