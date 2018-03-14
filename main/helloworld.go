@@ -5,6 +5,7 @@ import(
 	myArray "../array"
 	mySlice "../slice"
 	myMap "../map"
+	tinf "../interface"
 )
 
 func main() {
@@ -14,4 +15,10 @@ func main() {
 	myArray.ShowArray()
 	mySlice.ShowSlice()
 	myMap.ShowMap()
+	mytestinfterfaceobj := new(tinf.Square)
+	mytestinfterfaceobj.TestInf()
+
+	var myname tinf.Namer
+	myname = mytestinfterfaceobj
+	fmt.Println(myname.TestInterface2())
 }

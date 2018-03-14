@@ -33,6 +33,7 @@ func TestStruct() {
 	mystruc.EchoStruct()
 }
 
+// add method to the class
 func (this *myStruct) EchoStruct() {
 	this.strua = "propty"
 	this.strub = 12
