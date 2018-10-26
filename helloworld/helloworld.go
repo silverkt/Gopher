@@ -7,7 +7,6 @@ import (
 )
 
 
-
 func HelloServer(res http.ResponseWriter, req *http.Request) {
 	fmt.Println("Inside HelloServer handler");
 	// fmt.Fprintf(res, "Hello,"+req.URL.Path[1:]);
