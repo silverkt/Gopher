@@ -11,6 +11,10 @@ type FirstMan struct {
 	height int;
 }
 
+type SecondMan struct {
+	FirstMan
+	company string
+}
 
 func main() {
 	liming := new(FirstMan);
@@ -30,6 +34,23 @@ func main() {
 	fmt.Println(res,"test");
 
 	_ = hanmeimei.run("fuckly");
+
+
+	var xiaoming SecondMan;
+	xiaoming.name ="xiaoming";
+	xiaoming.address = "Japan";
+	xiaoming.weight = 200;
+	xiaoming.height = 163;
+	xiaoming.company = "ABB";
+	_ = xiaoming.run("傻啦吧唧");
+
+
+	xiaoming = FirstMan{
+		name: "Clare",
+		address: "USA", 
+		age: 23,
+		weight: 164, 
+		height: 90};
 }
 
 func (this FirstMan) run(how string) bool {
