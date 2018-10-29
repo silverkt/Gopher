@@ -20,12 +20,9 @@ func main() {
 	for i := 299789; i > 200000; i-- {
 		res, _ := getHtml("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
 		fmt.Println("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
-		os.Mkdir(strconv.Itoa(i), os.ModePerm);
-		os.Chdir(strconv.Itoa(i));
-		a, _ := os.Getwd();
-		fmt.Println(a);
-		savePagedImg(res);
-		os.Chdir("..");
+
+		savePagedImg(res, strconv.Itoa(i));
+		
 	} 
 }
 
@@ -33,14 +30,24 @@ func main() {
 /*
 获取当前页面图片列表并保存
 **/
-func savePagedImg(res string) {
+func savePagedImg(res string, dir string) {
 	//获取列表
 	imgList := getList(res);
+	imgLen := len(imgList);
+	if imgLen != 0 {
+		os.Mkdir(dir, os.ModePerm);
+		os.Chdir(dir);
+		// a, _ := os.Getwd();
+		// fmt.Println(a);
+	}
 	for index, value := range imgList {
 		imgList[index] = "http://h.p03.space/"+value;
 		saveRes(imgList[index]); //保存图片
 		//time.Sleep(time.Second/2);
 		fmt.Println(imgList[index]);
+	}
+	if imgLen != 0 {
+	    os.Chdir("..");
 	}
 	fmt.Println(" ");
 }
