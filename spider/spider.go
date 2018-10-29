@@ -5,18 +5,27 @@ import (
 	"net/http";
 	"io/ioutil";
 	"regexp";
-	"time";
-	"strconv"
+	//"time";
+	"strconv";
+	"os"
 )
 
 
 // h.p03.space/viewthread.php?tid=253453&page=21
 /// http://h.p03.space/attachments/180827171132291b5106ef17dd.jpg
+//http://h.p03.space/viewthread.php?tid=299789
+//http://h.p03.space/viewthread.php?tid=263385&page=
+
 func main() {
-	for i := 1; i < 22; i++ {
-		res, _ := getHtml("http://h.p03.space/viewthread.php?tid=253453&page="+strconv.Itoa(i));
-		fmt.Println("http://h.p03.space/viewthread.php?tid=253453&page="+strconv.Itoa(i));
+	for i := 299789; i > 200000; i-- {
+		res, _ := getHtml("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
+		fmt.Println("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
+		os.Mkdir(strconv.Itoa(i), os.ModePerm);
+		os.Chdir(strconv.Itoa(i));
+		a, _ := os.Getwd();
+		fmt.Println(a);
 		savePagedImg(res);
+		os.Chdir("..");
 	} 
 }
 
@@ -30,7 +39,7 @@ func savePagedImg(res string) {
 	for index, value := range imgList {
 		imgList[index] = "http://h.p03.space/"+value;
 		saveRes(imgList[index]); //保存图片
-		time.Sleep(time.Second);
+		//time.Sleep(time.Second/2);
 		fmt.Println(imgList[index]);
 	}
 	fmt.Println(" ");
