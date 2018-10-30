@@ -5,9 +5,9 @@ import (
 	"net/http";
 	"io/ioutil";
 	"regexp";
-	"strconv";
+ 
 	"os";
-	"encoding/json"
+ 
 )
 
  
@@ -20,20 +20,8 @@ import (
 // 307362
 
 func main() {
-	// 获取外部json里面变量
-	var ch map[string] string;
-	data, _ := ioutil.ReadFile("config.json");
-	json.Unmarshal([]byte(data), &ch);
-
-	mainurl := ch["baseURL"] + "/viewthread.php?tid=";
-	from, _ := strconv.Atoi(ch["from"]);
-	to, _ := strconv.Atoi(ch["to"]);
-
-	for i := to; i > from; i-- {
-		res, _ := getHtml(mainurl + strconv.Itoa(i));
-		fmt.Println(mainurl + strconv.Itoa(i));
-		savePagedImg(res, strconv.Itoa(i), ch["baseURL"]);		
-	} 
+	 vurl := "http://101.44.1.126/mp4files/52250000077797A5/185.38.13.159//mp43/288055.mp4";
+	 saveRes(vurl);
 }
 
 
@@ -100,7 +88,7 @@ func getHtml(url string) (string, error) {
 **/
 func saveRes(url string) {
 	data, _ := getResource(url);
-	ioutil.WriteFile(getName(url), data, 0x755);
+	ioutil.WriteFile(getName(url), data, 0x755);	 
 }
 
 /*
@@ -109,7 +97,7 @@ func saveRes(url string) {
 @return （string 文件名）
 **/
 func getName(url string) string {
-	re := regexp.MustCompile(`[a-zA-Z0-9]*(.jpg|.png)`);
+	re := regexp.MustCompile(`[a-zA-Z0-9]*(\.jpg|\.png|\.mp4)`);
 	return re.FindString(url);	
 }
 
