@@ -7,9 +7,11 @@ import (
 	"regexp";
 	//"time";
 	"strconv";
-	"os"
+	"os";
+	"encoding/json"
 )
 
+ 
 
 // h.p03.space/viewthread.php?tid=253453&page=21
 /// http://h.p03.space/attachments/180827171132291b5106ef17dd.jpg
@@ -19,12 +21,19 @@ import (
 // 307362
 
 func main() {
-	for i := 298324; i > 200000; i-- {
-		res, _ := getHtml("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
-		fmt.Println("http://h.p03.space/viewthread.php?tid="+strconv.Itoa(i));
+	// 获取外部json里面变量
+	var ch map[string] string;
+	data, _ := ioutil.ReadFile("config.json");
+	json.Unmarshal([]byte(data), &ch);
 
-		savePagedImg(res, strconv.Itoa(i));
-		
+	mainurl := ch["baseURL"] + "/viewthread.php?tid=";
+	from, _ := strconv.Atoi(ch["from"]);
+	to, _ := strconv.Atoi(ch["to"]);
+
+	for i := to; i > from; i-- {
+		res, _ := getHtml(mainurl + strconv.Itoa(i));
+		fmt.Println(mainurl + strconv.Itoa(i));
+		savePagedImg(res, strconv.Itoa(i), ch["baseURL"]);		
 	} 
 }
 
@@ -32,7 +41,7 @@ func main() {
 /*
 获取当前页面图片列表并保存
 **/
-func savePagedImg(res string, dir string) {
+func savePagedImg(res string, dir string, baseURL string) {
 	//获取列表
 	imgList := getList(res);
 	imgLen := len(imgList);
@@ -43,7 +52,7 @@ func savePagedImg(res string, dir string) {
 		// fmt.Println(a);
 	}
 	for index, value := range imgList {
-		imgList[index] = "http://h.p03.space/"+value;
+		imgList[index] = baseURL+ "/" + value;
 		saveRes(imgList[index]); //保存图片
 		//time.Sleep(time.Second/2);
 		fmt.Println(imgList[index]);
