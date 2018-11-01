@@ -7,10 +7,7 @@ import (
 func Add(x, y int, ch chan int) {
 	z := x + y;
 	fmt.Println(z);
-	flag := <- ch;
-	if flag != 10 {
-		ch <- flag + 1;
-	}
+	ch <- x;
 }
 
 func main() {
@@ -19,13 +16,10 @@ func main() {
 	for i := 0; i < 10; i++ {
 		go Add(i, i, ch);
 	}
-	ch <- 0;
-	flag := <- ch;
-	
-	if flag != 10 {
-		ch <- flag + 1;
+	 
+	for j :=0; j < 10; j++ {
+		fmt.Println("the ch is : ", <- ch);
 	}
-
-	fmt.Println("the ch is : ", <- ch);
+	
 	
 }
