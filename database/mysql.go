@@ -7,7 +7,7 @@ import (
 
 type DbWorker struct {
     //mysql data source name
-    Dsn string 
+    Dsn string;
 }
 
 func main() {
