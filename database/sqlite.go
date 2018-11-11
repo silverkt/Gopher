@@ -7,27 +7,32 @@ import (
 func main() {
 	db, err := sql.Open("sqlite3", "./foo.db")
 	checkErr(err)
-	//创建数据库表
-createsql :=	`CREATE TABLE userinfo
-	(
-	username varchar(255),
-	departname varchar(255),
-	created varchar(255)
-	);`
+// 	//创建数据库表
+// createsql :=	`CREATE TABLE userinfo
+// 	(
+// 	username varchar(255),
+// 	departname varchar(255),
+// 	created varchar(255)
+// 	);`
 
 
-	stmt, err := db.Prepare(createsql)
-checkErr(err)
+// 	stmt, err := db.Prepare(createsql)
+// checkErr(err)
 
-_ , err = stmt.Exec()
-checkErr(err)
+// _ , err = stmt.Exec()
+// checkErr(err)
 
-//插入数据
-	stmt, err := db.Prepare("INSERT INTO userinfo(username, departname, created) values(?,?,?)")
-checkErr(err)
+// //插入数据
+// 	stmt, err := db.Prepare("INSERT INTO userinfo(username, departname, created) values(?,?,?)")
+// checkErr(err)
 
-_ , err = stmt.Exec("astaxie", "研发部门", "2012-12-09")
-checkErr(err)
+// res, err := stmt.Exec("astaxie2", "研发部门", "2018-11-11")
+// checkErr(err)
+
+// id, err := res.LastInsertId()
+// checkErr(err)
+
+// fmt.Println(id)
 
 
 
@@ -51,7 +56,40 @@ for rows.Next() {
     fmt.Println(created)
 }
 
+
+
+// //更新数据
+// stmt, err := db.Prepare("update userinfo set username=? where username=?")
+// checkErr(err)
+
+// res, err := stmt.Exec("silverupdate", "astaxie2")
+// checkErr(err)
+
+// affect, err := res.RowsAffected()
+// checkErr(err)
+
+// fmt.Println(affect)
+
+
+
+    // //删除数据
+    // stmt, err := db.Prepare("delete from userinfo where username=?")
+    // checkErr(err)
+
+    // res, err := stmt.Exec("silverupdate")
+    // checkErr(err)
+
+    // affect, err := res.RowsAffected()
+    // checkErr(err)
+
+    // fmt.Println(affect)
+
+
 db.Close();
+
+
+
+
 
 
 }
