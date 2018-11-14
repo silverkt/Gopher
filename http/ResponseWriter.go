@@ -43,7 +43,7 @@ func myResponseWriter(w http.ResponseWriter) http.ResponseWriter  {
 func main() {
 	mux := http.NewServeMux();
 	mux.Handle("/", &indexHandler{"test<div style=background:#eee;>kskksksk</div>"});
-	mux.Handle("/test", &indexHandler{"test<div style=background:red;>testpage</div>"});
+	mux.Handle("/test", &testHandler{"test<div style=background:red;>other</div>"});
 	err := http.ListenAndServe(":12345", mux)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
