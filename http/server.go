@@ -1,28 +1,55 @@
-package main
+package main;
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+	//"fmt";
+	"net/http";
+	"io";
+	"log";
 )
 
-
-func HelloControl(res http.ResponseWriter, req *http.Request) {
-	fmt.Println("Inside HelloServer handler");
-	fmt.Fprintf(res, "Hello,"+req.URL.Path[1:]);
-	//fmt.Fprintf(res, "<h1>sxq</h1><div>Hello World!!</div>");
+/**
+首页处理
+*/
+type indexHandler struct {
+	message string;
+}
+func (this *indexHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w = myResponseWriter(w);
+	io.WriteString(w, this.message);
 }
 
-func RootControl(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "this is  all from root ");
+/**
+test处理
+*/
+type testHandler struct {
+	message string;
 }
+func (this *testHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w = myResponseWriter(w);
+	io.WriteString(w, this.message);
+}
+
+
+
+/**
+公共response设置
+*/
+func myResponseWriter(w http.ResponseWriter) http.ResponseWriter  {
+	w.Header().Set("Content-Type", "text/html");
+	return w;
+}
+
 
 func main() {
-	fmt.Println("Hello World!");
-	http.HandleFunc("/abc/", HelloControl);
-	http.HandleFunc("/", RootControl);
-	err := http.ListenAndServe(":8080", nil);
+	
+	mux := http.NewServeMux();
+	mux.Handle("/", &indexHandler{"test<div style=background:#eee;>kskksksk</div>"});
+	mux.Handle("/test", &testHandler{"test<div style=background:red;>other</div>"});
+	server := &http.Server{ Addr: ":1234", Handler: mux};
+	err := server.ListenAndServe();
+	//err := http.ListenAndServe(":12345", mux)
 	if err != nil {
-		log.Fatal("ListenAndServe:", err.Error());
+		log.Fatal("ListenAndServe: ", err)
 	}
+
 }

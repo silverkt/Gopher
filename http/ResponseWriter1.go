@@ -51,8 +51,8 @@ func (this *testHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux();
-	mux.Handle("/", &indexHandler{message:"test<div style=background:#eee;>kskksksk</div>"});
-	mux.Handle("/test", &testHandler{message:"test<div style=background:red;>testpage</div>"});
+	mux.Handle("/", &indexHandler{message:`test<div style="background:#eee;">kskksksk</div>`});
+	mux.Handle("/test", &testHandler{message:`test<div style="background:red;">testpage</div>`});
 	err := http.ListenAndServe(":12345", mux)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
