@@ -3,7 +3,6 @@ package main;
 import (
 	"net/http";
 	"html/template";
-	"time";
 )
 
 type Person struct {
@@ -13,12 +12,16 @@ type Person struct {
 }
 
 
-
 func testHandler(w http.ResponseWriter, r *http.Request) {
+	Person := map[string]interface{}{
+		"Name": "Silver",
+		"Age": 18,
+		"Title": "Front-end-Developer",
+	}
 	templatePath := "./tpl/test.html";
 	tpl, _ := template.ParseFiles(templatePath);
-	p := Person{ Name: "silver", Age: 18, Title: "front-end-developer" }
-	tpl.Execute(w, p);
+	//p := Person{ Name: "silver", Age: 18, Title: "front-end-developer" }
+	tpl.Execute(w, Person);
 }
 
 
