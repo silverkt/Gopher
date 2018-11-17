@@ -14,6 +14,7 @@ func test1Handler(w http.ResponseWriter, r *http.Request) {
 	t := template.New("第一个模板").Delims("[[", "]]") //创建一个模板,设置模板边界
 	t, _ = t.Parse("hello,[[.UserName]]\n")       //解析模板文件
 	data := map[string]interface{}{"UserName": template.HTML("<script>alert('you have been pwned')</script>")}
+	// 此处template.HTML 是类型，加括号的意思是强制转换字符串伟 temlate.HTML类型，不转义
 	//w.Header().Set("Content-Type","text/html");
 	t.Execute(w, data) //执行模板的merger操作，并输出到控制台
 	fmt.Println(t.Name(), "\n\n")
