@@ -10,7 +10,7 @@ import (
 type Person struct {
 	Name string  `json: "name"`;
 	Title string  `json: "title"`;
-	Age int  `json: "age"`;
+	Age int  `json: "agg"`;
 }
 
 
