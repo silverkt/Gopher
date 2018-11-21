@@ -2,20 +2,29 @@ package main;
 
 import (
 	"net/http";
-	//"encoding/json";
+	"encoding/json";
 	//"io";
 )
 
 
+type Person struct {
+	Name string  `json: "name"`;
+	Title string  `json: "title"`;
+	Age int  `json: "age"`;
+}
+
+
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
-	str := `
-	{
-		"name": "silver",
-		"title": "developer",
-		"age": "18"
+	
+	result := Person{
+		Name: "silver",    
+		Title: "Front-End-Develp",
+		Age: 18,
 	}
-	`;
+
+	str, _ := json.Marshal(result);
+
 
 	// // Stop here if its Preflighted OPTIONS request
     // if origin := r.Header.Get("Origin"); origin != "" {
