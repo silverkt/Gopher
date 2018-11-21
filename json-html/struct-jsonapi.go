@@ -8,9 +8,9 @@ import (
 
 
 type Person struct {
-	Name string  `json: "name"`;
-	Title string  `json: "title"`;
-	Age int  `json: "agg"`;
+	Name string  `json:"myname"`;
+	Title string  `json:"mytitle"`;
+	Age int  `json:"myagg"`;
 }
 
 
