@@ -11,8 +11,7 @@ func main() {
 	var dbgInfos map[string]string
 
 	json.Unmarshal([]byte(data), &dbgInfos)
-
-
+	
 	fmt.Println(dbgInfos);
 	fmt.Println(dbgInfos["url"]);
 }
