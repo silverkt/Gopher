@@ -62,6 +62,8 @@ func getSiteData() {
 	
 	BaseUrl = "http://vis-screen-fnw-dev.tipaas.enncloud.cn";
 	Api = BaseUrl + "/web/site.json";
+	var stationInfos map[string]interface{};
+	//var stationItem map[string]string;
 
 	resp, err := http.Get(Api);
 
@@ -70,9 +72,19 @@ func getSiteData() {
 	}
 	defer resp.Body.Close();
 	body, _ := ioutil.ReadAll(resp.Body);
-	fmt.Println(string(body));
+	json.Unmarshal(body, &stationInfos);
 
-	
+	//fmt.Println(stationInfos["obj"]);
+	//fmt.Sprintf("%T", stationInfos["obj"]);
+
+	// for i, stationItem := range ([]interface{})(stationInfos["obj"]) {
+	// 	fmt.Println(stationItem["id"]);
+	// }
+
+
+	fmt.Println(stationInfos["obj"]);
+
+
 }
 
 
