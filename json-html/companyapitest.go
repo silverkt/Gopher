@@ -77,12 +77,12 @@ func getSiteData() {
 	//fmt.Println(stationInfos["obj"]);
 	//fmt.Sprintf("%T", stationInfos["obj"]);
 
-	// for i, stationItem := range ([]interface{})(stationInfos["obj"]) {
-	// 	fmt.Println(stationItem["id"]);
-	// }
+	for _ , stationItem := range (stationInfos["obj"]).([]interface{}) {
+		fmt.Println( stationItem);
+	}
 
 
-	fmt.Println(stationInfos["obj"]);
+	//fmt.Println(stationInfos["obj"].([]interface{})[3].(map[string]interface{})["websiteName"]);
 
 
 }
