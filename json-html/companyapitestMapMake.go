@@ -66,6 +66,8 @@ func getSiteData() {
 	BaseUrl = "http://vis-screen-fnw-dev.tipaas.enncloud.cn";
 	Api = BaseUrl + "/web/site.json";
 	var stationInfos map[string]interface{};
+	var stationItem map[string]interface{};
+	stationItem = make(map[string]interface{});
 	
 
 	resp, err := http.Get(Api);
@@ -78,8 +80,8 @@ func getSiteData() {
 	json.Unmarshal(body, &stationInfos);
 
 
-	for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
-		fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
+	for _ , stationItem = range (stationInfos["obj"]).([]map[string]interface{}) {
+		fmt.Println(stationItem.(map[string]interface{})["websiteName"]);
 	}
 	//fmt.Println(stationInfos["obj"].([]interface{})[3].(map[string]interface{})["websiteName"]);
 
@@ -87,12 +89,6 @@ func getSiteData() {
 }
 
 
-
-func getArea(data interface {}, filterKey string, filterValue string) return []map[string]string {
-	for i, dataItem := range data {
-
-	}
-}
 
 
 
