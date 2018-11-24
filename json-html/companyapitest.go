@@ -77,11 +77,9 @@ func getSiteData() {
 	body, _ := ioutil.ReadAll(resp.Body);
 	json.Unmarshal(body, &stationInfos);
 
-	//fmt.Println(stationInfos["obj"]);
-	//fmt.Sprintf("%T", stationInfos["obj"]);
 
-	for _ , stationItem := range (stationInfos["obj"]).([]interface{}) {
-		fmt.Println( stationItem);
+	for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
+		fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
 	}
 
 
