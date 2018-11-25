@@ -62,6 +62,9 @@ func getSiteData() {
 		BaseUrl string;
 		Api string;
 	)
+
+	var filtedData []map[string]string;
+	//filtedData = make([]map[string]string);
 	
 	BaseUrl = "http://vis-screen-fnw-dev.tipaas.enncloud.cn";
 	Api = BaseUrl + "/web/site.json";
@@ -88,12 +91,13 @@ func getSiteData() {
 
 
 
-func getArea(data interface {}, filterKey string, filterValue string) return []map[string]string {
-	var res []map[string]string;
-	for i, dataItem := range data {
+// func getArea(data []interface {}, filterKey string, filterValue string) return []map[string]string {
+// 	var res []map[string]string;
+// 	for i, dataItem := range data {
 		
-	}
-}
+// 	};
+// 	return res;
+// }
 
 
 
