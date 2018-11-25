@@ -88,14 +88,6 @@ func getSiteData() {
 
 
 
-func getArea(data interface {}, filterKey string, filterValue string) return []map[string]string {
-	for i, dataItem := range data {
-
-	}
-}
-
-
-
 
 
 
