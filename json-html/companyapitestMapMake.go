@@ -62,8 +62,9 @@ func getSiteData() {
 		BaseUrl string;
 		Api string;
 	)
+	
 
-	var filtedData []map[string]string;
+	// var filtedData []map[string]string;
 	//filtedData = make([]map[string]string);
 	
 	BaseUrl = "http://vis-screen-fnw-dev.tipaas.enncloud.cn";
@@ -80,10 +81,24 @@ func getSiteData() {
 	body, _ := ioutil.ReadAll(resp.Body);
 	json.Unmarshal(body, &stationInfos);
 
+	// jsonMap := make(map[string]interface{});
+	// jsonMap["obj"] = getArea(stationInfos["obj"].([]interface{}), "area", "华北");
+	// jsonStr, _ := json.Marshal(jsonMap);
+	// fmt.Print([]byte(jsonStr));
 
-	for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
-		fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
+
+	res := getArea(stationInfos["obj"].([]interface{}), "area", "华北");
+	for i, item := range res {
+		fmt.Println(i, item["websiteName"]);
 	}
+	// res = getArea(([]interface{})res, "websiteName", "天津京滨工业园泛能区域网");
+	// for i, item := range res {
+	// 	fmt.Println(i, item["company"]);
+	// }	
+
+	// for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
+	// 	fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
+	// }
 	//fmt.Println(stationInfos["obj"].([]interface{})[3].(map[string]interface{})["websiteName"]);
 
 
@@ -91,13 +106,20 @@ func getSiteData() {
 
 
 
-// func getArea(data []interface {}, filterKey string, filterValue string) return []map[string]string {
-// 	var res []map[string]string;
-// 	for i, dataItem := range data {
-		
-// 	};
-// 	return res;
-// }
+func getArea(data []interface{}, filterKey string, filterValue string) []map[string]interface{} {
+	
+	res := make([]map[string]interface{}, 200);
+	var sum int = 0;
+	for _, dataItem := range data {
+		//fmt.Println(i, dataItem.(map[string]interface{})["websiteName"])
+		if dataItem.(map[string]interface{})[filterKey] == filterValue {
+			res[sum] = dataItem.(map[string]interface{});
+			sum ++;
+		}		
+	};
+	res = res[:sum];
+	return res;
+}
 
 
 
