@@ -5,10 +5,13 @@ import (
 	"encoding/json";
 	"io/ioutil";
 	"fmt";
+	"reflect";
 )
 
 
-
+func typeof(v interface{}) string {
+    return reflect.TypeOf(v).String()
+}
 
 
 type Person struct {
@@ -88,13 +91,15 @@ func getSiteData() {
 
 
 	res := getArea(stationInfos["obj"].([]interface{}), "area", "华北");
+	res = getArea(res, "websiteName", "廊坊市新朝阳泛能微网");
+	fmt.Println("---------------");
+	fmt.Println(typeof(stationInfos["obj"]));
+	fmt.Println(typeof(res));
+	fmt.Println("---------------");
 	for i, item := range res {
-		fmt.Println(i, item["websiteName"]);
+		fmt.Println(i, item.(map[string]interface{})["websiteName"]);
 	}
-	// res = getArea(([]interface{})res, "websiteName", "天津京滨工业园泛能区域网");
-	// for i, item := range res {
-	// 	fmt.Println(i, item["company"]);
-	// }	
+
 
 	// for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
 	// 	fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
@@ -106,9 +111,9 @@ func getSiteData() {
 
 
 
-func getArea(data []interface{}, filterKey string, filterValue string) []map[string]interface{} {
+func getArea(data []interface{}, filterKey string, filterValue string) []interface{} {
 	
-	res := make([]map[string]interface{}, 200);
+	res := make([]interface{}, 200);
 	var sum int = 0;
 	for _, dataItem := range data {
 		//fmt.Println(i, dataItem.(map[string]interface{})["websiteName"])
