@@ -24,14 +24,18 @@ type Person struct {
 
 func testHandler(w http.ResponseWriter, r *http.Request) {
 	
-	result := Person{
-		Name: "silver",    
-		Title: "Front-End-Develp",
-		Age: 18,
-	}
+	// result := Person{
+	// 	Name: "silver",    
+	// 	Title: "Front-End-Develp",
+	// 	Age: 18,
+	// }
 
-	str, _ := json.Marshal(result);
+	// str, _ := json.Marshal(result);
 
+	r.ParseForm();
+	fmt.Println(r.Form);
+
+	str := getSiteData();
 
 	// // Stop here if its Preflighted OPTIONS request
     // if origin := r.Header.Get("Origin"); origin != "" {
@@ -60,7 +64,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func getSiteData() {
+func getSiteData() []byte {
 	var (
 		BaseUrl string;
 		Api string;
@@ -71,7 +75,7 @@ func getSiteData() {
 	//filtedData = make([]map[string]string);
 	
 	BaseUrl = "http://vis-screen-fnw-dev.tipaas.enncloud.cn";
-	Api = BaseUrl + "/web/site.json";
+	Api = BaseUrl + "/web/site.json";   //可以用本目录下的api.json代替
 	var stationInfos map[string]interface{};
 	
 
@@ -96,12 +100,14 @@ func getSiteData() {
 	fmt.Println(typeof(stationInfos["obj"]));
 	fmt.Println(typeof(res));
 	fmt.Println("---------------");
-	for i, item := range res {
-		fmt.Println(i, item.(map[string]interface{})["websiteName"]);
-	}
+	// for i, item := range res {
+	// 	fmt.Println(i, item.(map[string]interface{})["websiteName"]);
+	// }
 	jsonMap["obj"] = res;
 	jsonStr, _ := json.Marshal(jsonMap);
-	fmt.Println([]byte(jsonStr));
+	//fmt.Printf("%s\n", jsonStr)
+
+	return jsonStr;
 
 }
 
@@ -130,6 +136,6 @@ func main() {
 	 
 
 	getSiteData();
-	// http.HandleFunc("/test", testHandler);
-	// http.ListenAndServe(":8080", nil);
+	http.HandleFunc("/test", testHandler);
+	http.ListenAndServe(":8080", nil);
 }
