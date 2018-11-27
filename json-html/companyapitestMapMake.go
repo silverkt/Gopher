@@ -84,7 +84,7 @@ func getSiteData() {
 	body, _ := ioutil.ReadAll(resp.Body);
 	json.Unmarshal(body, &stationInfos);
 
-	// jsonMap := make(map[string]interface{});
+	jsonMap := make(map[string]interface{});
 	// jsonMap["obj"] = getArea(stationInfos["obj"].([]interface{}), "area", "华北");
 	// jsonStr, _ := json.Marshal(jsonMap);
 	// fmt.Print([]byte(jsonStr));
@@ -99,20 +99,15 @@ func getSiteData() {
 	for i, item := range res {
 		fmt.Println(i, item.(map[string]interface{})["websiteName"]);
 	}
-
-
-	// for i , stationItem := range (stationInfos["obj"]).([]interface{}) {
-	// 	fmt.Println(i, stationItem.(map[string]interface{})["websiteName"]);
-	// }
-	//fmt.Println(stationInfos["obj"].([]interface{})[3].(map[string]interface{})["websiteName"]);
-
+	jsonMap["obj"] = res;
+	jsonStr, _ := json.Marshal(jsonMap);
+	fmt.Println([]byte(jsonStr));
 
 }
 
 
 
-func getArea(data []interface{}, filterKey string, filterValue string) []interface{} {
-	
+func getArea(data []interface{}, filterKey string, filterValue string) []interface{} {	
 	res := make([]interface{}, 200);
 	var sum int = 0;
 	for _, dataItem := range data {
