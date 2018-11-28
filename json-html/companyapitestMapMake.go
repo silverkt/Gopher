@@ -2,6 +2,7 @@ package main;
 
 import (
 	"net/http";
+	"net/url";
 	"encoding/json";
 	"io/ioutil";
 	"fmt";
@@ -35,7 +36,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm();
 	fmt.Println(r.Form);
 
-	str := getSiteData();
+	str := getSiteData(r.Form);
 
 	// // Stop here if its Preflighted OPTIONS request
     // if origin := r.Header.Get("Origin"); origin != "" {
@@ -64,7 +65,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 
-func getSiteData() []byte {
+func getSiteData(requestParams url.Values) []byte {
 	var (
 		BaseUrl string;
 		Api string;
@@ -92,10 +93,14 @@ func getSiteData() []byte {
 	// jsonMap["obj"] = getArea(stationInfos["obj"].([]interface{}), "area", "华北");
 	// jsonStr, _ := json.Marshal(jsonMap);
 	// fmt.Print([]byte(jsonStr));
+	
+	res := stationInfos["obj"].([]interface{});
+	for rkey, rvalue := range requestParams {
+		res = getArea(res, rkey, rvalue[0]);
+	}
 
-
-	res := getArea(stationInfos["obj"].([]interface{}), "area", "华北");
-	res = getArea(res, "websiteName", "廊坊市新朝阳泛能微网");
+	// res := getArea(stationInfos["obj"].([]interface{}), "area", "华北");
+	// res = getArea(res, "websiteName", "廊坊市新朝阳泛能微网");
 	fmt.Println("---------------");
 	fmt.Println(typeof(stationInfos["obj"]));
 	fmt.Println(typeof(res));
@@ -133,9 +138,6 @@ func getArea(data []interface{}, filterKey string, filterValue string) []interfa
 
 
 func main() {
-	 
-
-	getSiteData();
 	http.HandleFunc("/test", testHandler);
 	http.ListenAndServe(":8080", nil);
 }
