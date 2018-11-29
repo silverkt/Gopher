@@ -1,3 +1,6 @@
+/**
+main 包
+*/
 package main
 
 import (
@@ -6,12 +9,14 @@ import (
 	//"io";
 )
 
+// Person结构体人
 type Person struct {
 	Name  string `json:"myname"`
 	Title string `json:"mytitle"`
 	Age   int    `json:"myagg"`
 }
 
+// testHandler注释测试
 func testHandler(w http.ResponseWriter, r *http.Request) {
 
 	result := Person{
@@ -48,6 +53,7 @@ func testHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// main测试注释
 func main() {
 	http.HandleFunc("/test", testHandler)
 	http.ListenAndServe(":8080", nil)
