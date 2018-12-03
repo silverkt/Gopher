@@ -9,7 +9,7 @@ import (
 )
 
 func MarkDownParser() {
-	str := "# markdown"
+	str := "![avatar](/home/picture/1.png)"
 	html := blackfriday.MarkdownCommon([]byte(str))
 	fmt.Printf("%s/n", html)
 }
