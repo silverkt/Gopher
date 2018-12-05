@@ -20,6 +20,7 @@ import (
 // 307362
 
 func main() {
+	Client := 1;
 	// 获取外部json里面变量
 	var ch map[string] string;
 	data, _ := ioutil.ReadFile("config.json");
@@ -91,6 +92,7 @@ func getResource(url string) ([]byte, error) {
 @return（string：网页内容； error：读取错误）
 **/
 func getHtml(url string) (string, error) {
+	fmt.Println(Client);
 	res, err := getResource(url);
 	return string(res), err
 }
