@@ -8,7 +8,7 @@ import (
 
 func testHeader(res http.ResponseWriter, req *http.Request) {
 	for i, item := range req.Header {
-		fmt.Println(item)
+		fmt.Println(i, item)
 	}
 }
 
