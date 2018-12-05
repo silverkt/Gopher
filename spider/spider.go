@@ -76,7 +76,8 @@ func getResource(url string) ([]byte, error) {
 	req.Header.Set("Accept-Encoding", `gzip, deflate, br`)
 	req.Header.Set("Accept-Language", `zh-CN,zh;q=0.9`)
 	req.Header.Set("Cache-Control", `max-age=0`)
-	req.Header.Set("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`)
+	req.Header.Set("User-Agent", `Mozilla/5.0 (Linux; U; Android 7.1.2; zh-cn; Redmi 5 Plus Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.128 Mobile Safari/537.36 XiaoMi/MiuiBrowser/9.7.2`)
+	//req.Header.Set("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`)
 	req.Header.Set("Accept", `text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8`)
 	res, err := client.Do(req)
 	if err != nil {
