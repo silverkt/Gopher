@@ -8,6 +8,9 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"compress/gzip"
+	"io"
+//	"time"
 )
 
 // h.p03.space/viewthread.php?tid=253453&page=21
@@ -26,10 +29,14 @@ func main() {
 	mainurl := ch["baseURL"] + "/viewthread.php?tid="
 	from, _ := strconv.Atoi(ch["from"])
 	to, _ := strconv.Atoi(ch["to"])
-
+	
+	t := 999999999999
+	t = 0
 	for i := to; i > from; i-- {
-		res, _ := getHtml(mainurl + strconv.Itoa(i))
-		fmt.Println(mainurl + strconv.Itoa(i))
+		//t := strconv.Itoa(int(time.Now().Unix()))
+		t = t + 6000
+		fmt.Println(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
+		res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
 		savePagedImg(res, strconv.Itoa(i), ch["baseURL"])
 	}
 }
@@ -60,7 +67,7 @@ func savePagedImg(res string, dir string, baseURL string) {
 获取91图片列表
 **/
 func getList(content string) []string {
-	re := regexp.MustCompile(`attachments/[a-zA-Z0-9]*(.jpg|.png)`)
+	re := regexp.MustCompile(`attachments/[a-zA-Z0-9]*(.jpg|.png|.gif)`)
 	return re.FindAllString(content, -1)
 }
 
@@ -73,19 +80,33 @@ func getResource(url string) ([]byte, error) {
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Connection", `keep-alive`)
-	req.Header.Set("Accept-Encoding", `gzip, deflate, br`)
-	req.Header.Set("Accept-Language", `zh-CN,zh;q=0.9`)
-	req.Header.Set("Cache-Control", `max-age=0`)
+	req.Header.Set("Upgrade-Insecure-Requests", `1`)
 	req.Header.Set("User-Agent", `Mozilla/5.0 (Linux; U; Android 7.1.2; zh-cn; Redmi 5 Plus Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.128 Mobile Safari/537.36 XiaoMi/MiuiBrowser/9.7.2`)
-	//req.Header.Set("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`)
 	req.Header.Set("Accept", `text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8`)
+	req.Header.Set("Accept-Encoding", `gzip, deflate`)
+	req.Header.Set("Accept-Language", `zh-CN,en-US;q=0.8`)
+	req.Header.Set("Cache-Control", `max-age=0`)
+	//req.Header.Set("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`)
+	
 	res, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Get URl Error")
 		ioutil.WriteFile("error_log.txt", []byte(url), 0x755)
 	}
 	defer res.Body.Close()
-	data, err := ioutil.ReadAll(res.Body)
+
+	//网页gzip之后直接读取为乱码
+	var reader io.ReadCloser
+	if res.Header.Get("Content-Encoding") == "gzip" {
+		reader, err = gzip.NewReader(res.Body)
+		if err != nil {
+			 //
+		}
+	} else {
+		reader = res.Body
+	}
+
+	data, err := ioutil.ReadAll(reader)
 	return data, err
 }
 
