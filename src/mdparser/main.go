@@ -7,5 +7,7 @@ import (
 
 func main() {
 	fmt.Print("this is main")
-	libs.MarkDownParser()
+	data := libs.ReadMDFile("README.md")
+	res := libs.MarkDownParser(data)
+	fmt.Println(res)
 }
