@@ -9,5 +9,8 @@ func main() {
 	fmt.Print("this is main")
 	data := libs.ReadMDFile("README.md")
 	res := libs.MarkDownParser(data)
-	fmt.Println(res)
+	fmt.Printf("%s",res)
+	libs.SaveHtmlFile("../abc.html", res)
+
+
 }

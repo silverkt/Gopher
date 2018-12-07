@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	data, _ := ioutil.ReadFile("config.json");
+	data, _ := ioutil.ReadFile("config.json")
 	var dbgInfos map[string]string
 
 	json.Unmarshal([]byte(data), &dbgInfos)

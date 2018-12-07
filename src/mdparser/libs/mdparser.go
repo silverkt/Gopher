@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
+	"os"
 )
 
 func MarkDownParser(str []byte) []byte {
@@ -22,4 +23,8 @@ func ReadMDFile(path string) []byte {
 		fmt.Println("Read MarkDown Files Failure")
 	} 
 	return data	
+}
+
+func SaveHtmlFile(path string, content []byte) {
+	ioutil.WriteFile(path, content, os.FileMode(0777))
 }
