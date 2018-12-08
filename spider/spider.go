@@ -10,7 +10,8 @@ import (
 	"strconv"
 	"compress/gzip"
 	"io"
-//	"time"
+	"time"
+	"sync"
 )
 
 // h.p03.space/viewthread.php?tid=253453&page=21
@@ -19,6 +20,7 @@ import (
 //http://h.p03.space/viewthread.php?tid=263385&page=21
 // 299789
 // 307362
+var wg sync.WaitGroup //添加协程锁 计数器
 
 func main() {
 	// 获取外部json里面变量
@@ -30,44 +32,46 @@ func main() {
 	from, _ := strconv.Atoi(ch["from"])
 	to, _ := strconv.Atoi(ch["to"])
 	
-	t := 999999999999
-	t = 0
+	// t := 999999999999
+	// t = 0
 	for i := to; i > from; i-- {
 		//t := strconv.Itoa(int(time.Now().Unix()))
-		t = t + 6000
-		fmt.Println(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
+		// t = t + 6000
+		// fmt.Println(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
+		fmt.Println(mainurl + strconv.Itoa(i))
 		// res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
-		// savePagedImg(res, strconv.Itoa(i), ch["baseURL"])
+		
+		res, _ := getHtml(mainurl + strconv.Itoa(i))
+		savePagedImg(res, strconv.Itoa(i), ch["baseURL"], ch["regexp"])
+		time.Sleep(3 * time.Second)
 	}
 }
 
 /*
 获取当前页面图片列表并保存
 **/
-func savePagedImg(res string, dir string, baseURL string) {
+func savePagedImg(res string, dir string, baseURL string, exp string) {
 	//获取列表
-	imgList := getList(res)
+	imgList := getList(res, exp)
 	imgLen := len(imgList)
 	if imgLen != 0 {
 		os.Mkdir(dir, os.ModePerm)
-		os.Chdir(dir)
 	}
 	for index, value := range imgList {
 		imgList[index] = baseURL + "/" + value
-		saveRes(imgList[index]) //保存图片
+		wg.Add(1) //协程计数加一
+		go saveRes(imgList[index], dir) //保存图片
 		fmt.Println(imgList[index])
 	}
-	if imgLen != 0 {
-		os.Chdir("..")
-	}
+	wg.Wait() // 阻塞main协程， 不然最后一个 1的 协程没来得及结束，main就结束了 
 	fmt.Println(" ")
 }
 
 /*
 获取91图片列表
 **/
-func getList(content string) []string {
-	re := regexp.MustCompile(`attachments/[a-zA-Z0-9]*(.jpg|.png|.gif)`)
+func getList(content string, exp string) []string {
+	re := regexp.MustCompile(exp)
 	return re.FindAllString(content, -1)
 }
 
@@ -81,10 +85,11 @@ func getResource(url string) ([]byte, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Connection", `keep-alive`)
 	req.Header.Set("Upgrade-Insecure-Requests", `1`)
-	req.Header.Set("User-Agent", `Mozilla/5.0 (Linux; U; Android 7.1.2; zh-cn; Redmi 5 Plus Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.128 Mobile Safari/537.36 XiaoMi/MiuiBrowser/9.7.2`)
+	req.Header.Set("User-Agent", `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36`)
+	//req.Header.Set("User-Agent", `Mozilla/5.0 (Linux; U; Android 7.1.2; zh-cn; Redmi 5 Plus Build/N2G47H) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/61.0.3163.128 Mobile Safari/537.36 XiaoMi/MiuiBrowser/9.7.2`)
 	req.Header.Set("Accept", `text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8`)
 	req.Header.Set("Accept-Encoding", `gzip, deflate`)
-	req.Header.Set("Accept-Language", `zh-CN,en-US;q=0.8`)
+	req.Header.Set("Accept-Language", `zh-CN,en-US;q=0.9`)
 	req.Header.Set("Cache-Control", `max-age=0`)
 	//req.Header.Set("User-Agent", `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36`)
 	
@@ -123,9 +128,10 @@ func getHtml(url string) (string, error) {
 /*
 获取并保存网络资源
 **/
-func saveRes(url string) {
+func saveRes(url string, path string) {
 	data, _ := getResource(url)
-	ioutil.WriteFile(getName(url), data, 0x755)
+	ioutil.WriteFile((path+"/"+getName(url)), data, 0x755)
+	wg.Done() //协程计数减一
 }
 
 /*

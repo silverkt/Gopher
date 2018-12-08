@@ -1,6 +1,7 @@
 {
     "baseURL": "http://f.p02.space",
-    "attach": "/viewthread.php?tid=",
-    "from": "311990",
-    "to": "313211"
+    "attach": "/viewthread.php?tid=253453&extra=page%3D1&page=",
+    "regexp": "attachments/[a-zA-Z0-9]*(.jpg|.png|.gif)",
+    "from": "0",
+    "to": "5"
 }
