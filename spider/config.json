@@ -1,5 +1,6 @@
 {
     "baseURL": "http://f.p02.space",
+    "attach": "/viewthread.php?tid=",
     "from": "311990",
     "to": "313211"
 }

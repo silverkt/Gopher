@@ -26,7 +26,7 @@ func main() {
 	data, _ := ioutil.ReadFile("config.json")
 	json.Unmarshal([]byte(data), &ch)
 
-	mainurl := ch["baseURL"] + "/viewthread.php?tid="
+	mainurl := ch["baseURL"] + ch["attach"]
 	from, _ := strconv.Atoi(ch["from"])
 	to, _ := strconv.Atoi(ch["to"])
 	
@@ -36,8 +36,8 @@ func main() {
 		//t := strconv.Itoa(int(time.Now().Unix()))
 		t = t + 6000
 		fmt.Println(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
-		res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
-		savePagedImg(res, strconv.Itoa(i), ch["baseURL"])
+		// res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
+		// savePagedImg(res, strconv.Itoa(i), ch["baseURL"])
 	}
 }
 
