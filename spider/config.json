@@ -3,5 +3,8 @@
     "attach": "/viewthread.php?tid=253453&extra=page%3D1&page=",
     "regexp": "attachments/[a-zA-Z0-9]*(.jpg|.png|.gif)",
     "from": "0",
-    "to": "5"
+    "to": "5",
+    "biginterval": "20",
+    "sleeptime": "3",
+    "pageinterval": "3"
 }

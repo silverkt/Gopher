@@ -12,6 +12,7 @@ import (
 	"io"
 	"time"
 	"sync"
+	"math/rand"
 )
 
 // h.p03.space/viewthread.php?tid=253453&page=21
@@ -31,19 +32,41 @@ func main() {
 	mainurl := ch["baseURL"] + ch["attach"]
 	from, _ := strconv.Atoi(ch["from"])
 	to, _ := strconv.Atoi(ch["to"])
-	
-	// t := 999999999999
-	// t = 0
+
+	//最大翻页间隔 单位为秒
+	pageinterval, _ := strconv.Atoi(ch["pageinterval"])
+	//最大定期睡眠时长 单位为分
+	sleeptime, _ := strconv.Atoi(ch["sleeptime"])
+	//最大多长间隔定时睡眠 单位为分
+	biginterval, _ := strconv.Atoi(ch["biginterval"])
+
+	//计时开始
+	t := time.Now().Unix()
+	//计数开始， 设定为20次翻页即检查下时间间隔是否达到预定随眠时间
+	count := 0
 	for i := to; i > from; i-- {
-		//t := strconv.Itoa(int(time.Now().Unix()))
-		// t = t + 6000
-		// fmt.Println(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
+		count ++ //翻页计数
 		fmt.Println(mainurl + strconv.Itoa(i))
-		// res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))
-		
+		// res, _ := getHtml(mainurl + strconv.Itoa(i)+"&_="+strconv.Itoa(t))	
 		res, _ := getHtml(mainurl + strconv.Itoa(i))
 		savePagedImg(res, strconv.Itoa(i), ch["baseURL"], ch["regexp"])
-		time.Sleep(3 * time.Second)
+
+		pageinterval1 := rand.Intn(pageinterval) //设置随机翻页间隔时间
+		fmt.Println("page interval seconds:", pageinterval1)
+		time.Sleep(time.Duration(pageinterval1) * time.Second) //翻页间隔
+		//如果翻页20次并且没有设置不睡眠
+		if count == 20 && sleeptime !=0 {
+			count = 0 //计数重置
+			//如果时间间隔大于设定的 大段间隔睡眠时间 即开始睡眠，此举是为了避免服务端统计特定时间段内流量并且封ip
+			biginterval1 := rand.Intn(biginterval) //设置随机睡眠间隔
+			fmt.Println("big interval minutes:", biginterval1)
+			if int(time.Now().Unix() - t) > biginterval1 * 60 {
+				t = time.Now().Unix() //计时重置
+				sleeptime1 := rand.Intn(sleeptime) //设置随机睡眠时间
+				fmt.Println("sleep time minutes:", sleeptime1)
+				time.Sleep(time.Duration(sleeptime1) * time.Minute)
+			}
+		}
 	}
 }
 
