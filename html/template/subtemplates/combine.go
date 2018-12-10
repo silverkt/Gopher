@@ -15,15 +15,16 @@ type Person struct {
 
 func main() {
 	silver := Person{Id: 100, Name: "silver.sun", Country: "china"}
-	fmt.Println(silver)
-	tpl := template.New("layout.html")
+	sun := &Person{}
+	sun.Id = 23
+
+	fmt.Println(silver, sun)
+	tpl := template.New("layout.html") 
 	tpl.Funcs(map[string]interface{}{"tihuan": tihuan})
-	tpl.ParseFiles("./layout.html", "./sub.html")
-	// if err != nil {
-	// 	fmt.Println("error")
-	// }
+	tpl.ParseFiles("./layout.html", "./sub.html", "header.html", "footer.html")
 	
-	
+	file, _ := os.Create("./outputFiles/newFile.html")
+	tpl.Execute(file, silver)
 	tpl.Execute(os.Stdout, silver)
 }
 

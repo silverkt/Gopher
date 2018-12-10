@@ -155,6 +155,11 @@ func saveRes(url string, path string) {
 	data, _ := getResource(url)
 	ioutil.WriteFile((path+"/"+getName(url)), data, 0x755)
 	wg.Done() //协程计数减一
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println("goRoutine Panic happend")
+		}()
+	}
 }
 
 /*
