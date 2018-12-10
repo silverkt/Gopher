@@ -93,16 +93,18 @@ func getSiteData(requestParams url.Values) []byte {
 输入输出类型一致，适合链式调用
 */
 func getArea(data []interface{}, filterKey string, filterValue string) []interface{} {
-	res := make([]interface{}, 100, 500) // 开辟数组切片，大小100元素， 容纳能力500
-	var sum int = 0                      // 最终切片内容大小计数，以便将多余空间切除
+	var res []interface{} //定义切片
+	//res := make([]interface{}, 100, 500) // 开辟数组切片，大小100元素， 容纳能力500
+	//var sum int = 0                      // 最终切片内容大小计数，以便将多余空间切除
 	for _, dataItem := range data {
 		//fmt.Println(i, dataItem.(map[string]interface{})["websiteName"])
 		if dataItem.(map[string]interface{})[filterKey] == filterValue {
-			res[sum] = dataItem.(map[string]interface{})
-			sum++
+			//res[sum] = dataItem.(map[string]interface{})
+			res = append(res, dataItem.(map[string]interface{}))
+			//sum++
 		}
 	}
-	res = res[:sum] // 切除多余空间
+	//res = res[:sum] // 切除多余空间
 	return res
 }
 
