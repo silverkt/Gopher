@@ -32,7 +32,6 @@ func SaveHtmlFile(path string, content []byte) {
 
 func CombineFile(tplnames []string, filename string, data interface{}) {
 	tpl := template.New(tplnames[0]) 
-	//tpl.Funcs(map[string]interface{}{"tihuan": tihuan})
 	for i, item := range tplnames {
 		tplnames[i] = "./templates/"+ item
 		fmt.Println(tplnames[i])
