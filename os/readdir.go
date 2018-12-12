@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	//"time"
 )
 
 func main() {
@@ -14,7 +15,9 @@ func main() {
 		//
 	}
 	for _, item := range list {
-		fmt.Println(item.Name(), item.ModTime())
+		year, mon, day := item.ModTime().Date()
+		week := item.ModTime().Weekday()
+		fmt.Println(item.Name(), year, mon, day, week)
 	}
 
 	//利用os读取目录列表

@@ -43,3 +43,26 @@ func CombineFile(tplnames []string, filename string, data interface{}) {
 	file, _ := os.Create("./public/"+filename)
 	tpl.Execute(file, data)
 }
+
+
+
+func ScanFiles(dirpath string) []os.FileInfo {
+	file,  _ := os.Open(dirpath)
+	list, err = file.Readdir(0)
+	if err != nil {
+		fmt.Println("Readdir error")
+	}
+	defer file.Close()
+	return list
+}
+
+func CompareFiles(dirpath string) {
+	//ScanFiles(dirpath)
+	_, err := os.Stat("msg.gob")
+	if err == nil {
+		//存在 msg.gob 处理
+	}
+	if os.IsNotExist(err) {
+		//不存在 msg.gob 处理
+	}
+}
