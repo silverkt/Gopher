@@ -6,6 +6,8 @@ import (
 	"html/template"
 )
 
+
+
 type Index struct {
 	Name string
 	Content template.HTML
@@ -36,6 +38,15 @@ func main() {
 
 	tplnames1 := []string{"innerpage.html", "header.html", "footer.html", "leftbar.html", "rightbar.html"}
 	libs.CombineFile(tplnames1, "innerpage.html", inner)
+
+
+	// list := libs.ScanFiles("./")
+
+	// for i, item := range list {
+	// 	fmt.Println(i, item.Modtime)
+	// }
+
+	libs.CompareFiles("./")
 
 
 }

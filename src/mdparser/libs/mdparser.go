@@ -9,7 +9,18 @@ import (
 	"io/ioutil"
 	"os"
 	"html/template"
+	"time"
+	"encoding/gob"
 )
+
+
+type ArticleInfo struct {
+	Id int
+	Name string
+	Modtime time.Time
+}
+
+var ArticleList []ArticleInfo
 
 func MarkDownParser(str []byte) []byte {
 	//str := "![avatar](/home/picture/1.png)"
@@ -46,23 +57,41 @@ func CombineFile(tplnames []string, filename string, data interface{}) {
 
 
 
-func ScanFiles(dirpath string) []os.FileInfo {
+func ScanFiles(dirpath string) []ArticleInfo {
 	file,  _ := os.Open(dirpath)
-	list, err = file.Readdir(0)
+	list, err := file.Readdir(0)
 	if err != nil {
 		fmt.Println("Readdir error")
 	}
 	defer file.Close()
-	return list
+
+	article := ArticleInfo{}
+	for i, item := range list {
+		article.Id = i
+		article.Name = item.Name()
+		article.Modtime = item.ModTime()
+		ArticleList = append(ArticleList, article)
+	}
+	return ArticleList
 }
 
 func CompareFiles(dirpath string) {
-	//ScanFiles(dirpath)
-	_, err := os.Stat("msg.gob")
+	list := ScanFiles(dirpath)
+	_, err := os.Stat("list.gob")
 	if err == nil {
 		//存在 msg.gob 处理
+		file, _ := os.Open("list.gob")
+		gobde := gob.NewDecoder(file)
+		gobde.Decode(&ArticleList)
+		file.Close()
+		fmt.Println(ArticleList)
+		fmt.Println(len(ArticleList))
 	}
 	if os.IsNotExist(err) {
 		//不存在 msg.gob 处理
+		file, _ := os.Create("list.gob")
+		goben := gob.NewEncoder(file)
+		goben.Encode(list)
+		file.Close()
 	}
 }
