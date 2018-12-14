@@ -19,8 +19,8 @@ import (
 /// http://h.p03.space/attachments/180827171132291b5106ef17dd.jpg
 //http://h.p03.space/viewthread.php?tid=299789
 //http://h.p03.space/viewthread.php?tid=263385&page=21
-// 299789
-// 307362
+// 
+// 315083
 var wg sync.WaitGroup //添加协程锁 计数器
 
 func main() {
