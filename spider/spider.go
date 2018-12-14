@@ -158,8 +158,8 @@ func saveRes(url string, path string) {
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("goRoutine Panic happend")
-		}()
-	}
+		}
+	}()
 }
 
 /*
