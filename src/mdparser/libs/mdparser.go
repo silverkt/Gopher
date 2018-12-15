@@ -11,6 +11,7 @@ import (
 	"html/template"
 	"time"
 	"encoding/gob"
+	"reflect"
 )
 
 
@@ -69,7 +70,14 @@ func ScanFiles(dirpath string) []ArticleInfo {
 	for i, item := range list {
 		article.Id = i
 		article.Name = item.Name()
-		article.Modtime = item.ModTime()
+		//article.Modtime = item.ModTime()
+		article.Modtime = func() time.Time {
+			mfile, _ := os.Open(dirpath+item.Name())
+			mfileinfo, _ := mfile.Stat()
+			defer mfile.Close()
+			return mfileinfo.ModTime()
+			
+		}()
 		ArticleList = append(ArticleList, article)
 	}
 	return ArticleList
@@ -79,16 +87,25 @@ func CompareFiles(dirpath string) {
 	list := ScanFiles(dirpath)
 	_, err := os.Stat("list.gob")
 	if err == nil {
-		//存在 msg.gob 处理
+		//存在 list.gob 处理
+		//对比 gob和读取的目录是否一致，一致则返回nil， 不一致则返回不一致文件的数据
 		file, _ := os.Open("list.gob")
 		gobde := gob.NewDecoder(file)
 		gobde.Decode(&ArticleList)
 		file.Close()
+
+		if reflect.DeepEqual(list, ArticleList){    //Equality for slices is not defined. slice can only be compared to nil
+			fmt.Println("same list")
+		} else {
+			fmt.Println("different list")
+		}
 		fmt.Println(ArticleList)
-		fmt.Println(len(ArticleList))
+		fmt.Println(list)
+		// fmt.Println(len(ArticleList))
 	}
 	if os.IsNotExist(err) {
-		//不存在 msg.gob 处理
+		//不存在 list.gob 处理
+		// 返回文件数据
 		file, _ := os.Create("list.gob")
 		goben := gob.NewEncoder(file)
 		goben.Encode(list)
