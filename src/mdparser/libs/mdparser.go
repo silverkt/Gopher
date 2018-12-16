@@ -21,7 +21,7 @@ type ArticleInfo struct {
 	Modtime time.Time
 }
 
-var ArticleList []ArticleInfo
+
 
 func MarkDownParser(str []byte) []byte {
 	//str := "![avatar](/home/picture/1.png)"
@@ -59,6 +59,7 @@ func CombineFile(tplnames []string, filename string, data interface{}) {
 
 
 func ScanFiles(dirpath string) []ArticleInfo {
+	var ArticleList []ArticleInfo
 	file,  _ := os.Open(dirpath)
 	list, err := file.Readdir(0)
 	if err != nil {
@@ -68,28 +69,31 @@ func ScanFiles(dirpath string) []ArticleInfo {
 
 	article := ArticleInfo{}
 	for i, item := range list {
+		
 		article.Id = i
 		article.Name = item.Name()
-		//article.Modtime = item.ModTime()
-		article.Modtime = func() time.Time {
-			mfile, _ := os.Open(dirpath+item.Name())
-			mfileinfo, _ := mfile.Stat()
-			defer mfile.Close()
-			return mfileinfo.ModTime()
+		article.Modtime = item.ModTime()
+		// article.Modtime = func() time.Time {
+		// 	mfile, _ := os.Open(dirpath+item.Name())
+		// 	mfileinfo, _ := mfile.Stat()
+		// 	defer mfile.Close()
+		// 	return mfileinfo.ModTime()
 			
-		}()
+		// }()
 		ArticleList = append(ArticleList, article)
 	}
 	return ArticleList
 }
 
+
 func CompareFiles(dirpath string) {
+	var ArticleList []ArticleInfo
 	list := ScanFiles(dirpath)
-	_, err := os.Stat("list.gob")
+	_, err := os.Stat("../list.gob")
 	if err == nil {
 		//存在 list.gob 处理
 		//对比 gob和读取的目录是否一致，一致则返回nil， 不一致则返回不一致文件的数据
-		file, _ := os.Open("list.gob")
+		file, _ := os.Open("../list.gob")
 		gobde := gob.NewDecoder(file)
 		gobde.Decode(&ArticleList)
 		file.Close()
@@ -106,9 +110,14 @@ func CompareFiles(dirpath string) {
 	if os.IsNotExist(err) {
 		//不存在 list.gob 处理
 		// 返回文件数据
-		file, _ := os.Create("list.gob")
+		file, _ := os.Create("../list.gob")
 		goben := gob.NewEncoder(file)
 		goben.Encode(list)
 		file.Close()
 	}
+}
+
+
+func PickupChanges(reallist []ArticleInfo, storelist []ArticleInfo) {
+	
 }
