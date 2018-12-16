@@ -102,6 +102,7 @@ func CompareFiles(dirpath string) {
 			fmt.Println("same list")
 		} else {
 			fmt.Println("different list")
+			PickupChanges(list, ArticleList)
 		}
 		fmt.Println(ArticleList)
 		fmt.Println(list)
@@ -118,6 +119,23 @@ func CompareFiles(dirpath string) {
 }
 
 
-func PickupChanges(reallist []ArticleInfo, storelist []ArticleInfo) {
+func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
+	var extlist []ArticleInfo
+	// reallength := len(reallist)
+	// storedlength := len(storedlist)
+	// if reallength > storedlength {
+	// 	extlist = append(extlist, reallist[storedlength:]...)
+	// }
+	for _, realitem := range reallist {
+		for _, storeditem := range storedlist {
+			if realitem.Name == storeditem.Name && !reflect.DeepEqual(realitem, storeditem) {
+				extlist = append(extlist, realitem) //依然错， id不同了。。。
+			}
+		}
+
+	}
+	fmt.Println("===========")
+	fmt.Println(extlist)
+	fmt.Println("===========")
 	
 }
