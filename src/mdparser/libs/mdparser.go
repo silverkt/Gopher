@@ -121,16 +121,12 @@ func CompareFiles(dirpath string) {
 
 func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 	var extlist []ArticleInfo  // 增量更新
-	// reallength := len(reallist)
-	// storedlength := len(storedlist)
-	// if reallength > storedlength {
-	// 	extlist = append(extlist, reallist[storedlength:]...)
-	// }
-
-	// 实际列表中有修改文件的情况
 	var flag bool
+	var maxindex int
+
+
+	// 实际列表中有修改文件或者增加文件的情况
 	for _, realitem := range reallist {
-		flag = false
 		for _, storeditem := range storedlist {
 			if realitem.Name == storeditem.Name {
 				flag = true
@@ -139,12 +135,49 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 					extlist = append(extlist, storeditem)  				 
 				}
 			}
+			//获取存储对最大id
+			if storeditem.Id > maxindex {
+				maxindex = storeditem.Id
+			}
 		}
 		if !flag {
-			realitem.Id = len(storedlist)
-			extlist = append(extlist, realitem) 
+			realitem.Id = maxindex + 1
+			extlist = append(extlist, realitem)	
+			//存入 storedlist	
 		} 
+		flag = false
 	}
+
+	// 实际列表中有删除文件
+	for _, storeditem := range storedlist {
+		for _, realitem := range reallist {
+			if realitem.Name == storeditem.Name {
+				flag = true
+			}
+		}
+		if !flag {
+			fmt.Println(storeditem)
+			// 删除 storedlist里面对这一项
+		}
+		flag = false
+	}
+
+	
+		 
+	
+
+	// if reallength <= storedlength { //实际列表中有删除文件的情况
+	// 	for _, storeditem := range storedlist {
+	// 		for _, realitem := range reallist {
+	// 			if
+	// 		}
+	// 	}
+
+	// }
+
+	
+	
+	
 	fmt.Println("===========")
 	fmt.Println(extlist)
 	fmt.Println("===========")
