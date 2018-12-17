@@ -121,7 +121,12 @@ func getResource(url string) ([]byte, error) {
 		fmt.Println("Get URl Error")
 		ioutil.WriteFile("error_log.txt", []byte(url), 0x755)
 	}
-	defer res.Body.Close()
+	defer func() {
+		res.Body.Close()
+		if err1 := recover(); err1 != nil {
+			fmt.Println("goRoutine Panic happend")
+		}		 
+	}()
 
 	//网页gzip之后直接读取为乱码
 	var reader io.ReadCloser
