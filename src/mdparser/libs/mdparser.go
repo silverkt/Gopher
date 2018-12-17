@@ -120,19 +120,30 @@ func CompareFiles(dirpath string) {
 
 
 func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
-	var extlist []ArticleInfo
+	var extlist []ArticleInfo  // 增量更新
 	// reallength := len(reallist)
 	// storedlength := len(storedlist)
 	// if reallength > storedlength {
 	// 	extlist = append(extlist, reallist[storedlength:]...)
 	// }
+
+	// 实际列表中有修改文件的情况
+	var flag bool
 	for _, realitem := range reallist {
+		flag = false
 		for _, storeditem := range storedlist {
-			if realitem.Name == storeditem.Name && !reflect.DeepEqual(realitem, storeditem) {
-				extlist = append(extlist, realitem) //依然错， id不同了。。。
+			if realitem.Name == storeditem.Name {
+				flag = true
+				if realitem.Modtime != storeditem.Modtime {
+					storeditem.Modtime = realitem.Modtime
+					extlist = append(extlist, storeditem)  				 
+				}
 			}
 		}
-
+		if !flag {
+			realitem.Id = len(storedlist)
+			extlist = append(extlist, realitem) 
+		} 
 	}
 	fmt.Println("===========")
 	fmt.Println(extlist)
