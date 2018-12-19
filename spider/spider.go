@@ -20,7 +20,7 @@ import (
 //http://h.p03.space/viewthread.php?tid=299789
 //http://h.p03.space/viewthread.php?tid=263385&page=21
 // 
-// 315083
+// 315898
 var wg sync.WaitGroup //添加协程锁 计数器
 
 func main() {
