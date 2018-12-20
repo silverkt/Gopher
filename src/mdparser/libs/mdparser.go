@@ -69,7 +69,9 @@ func ScanFiles(dirpath string) []ArticleInfo {
 
 	article := ArticleInfo{}
 	for i, item := range list {
-		
+		if item.Name() == ".DS_Store" {
+			continue
+		}
 		article.Id = i
 		article.Name = item.Name()
 		article.Modtime = item.ModTime()
@@ -104,8 +106,8 @@ func CompareFiles(dirpath string) {
 			fmt.Println("different list")
 			PickupChanges(list, ArticleList)
 		}
-		fmt.Println(ArticleList)
-		fmt.Println(list)
+		fmt.Println("stored List:", ArticleList)
+		fmt.Println("realdd List:", list)
 		// fmt.Println(len(ArticleList))
 	}
 	if os.IsNotExist(err) {
@@ -149,14 +151,15 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 	}
 
 	// 实际列表中有删除文件
-	for _, storeditem := range storedlist {
+	for i, storeditem := range storedlist {
 		for _, realitem := range reallist {
 			if realitem.Name == storeditem.Name {
 				flag = true
 			}
 		}
 		if !flag {
-			fmt.Println(storeditem)
+			storedlist = append(storedlist[:i], storedlist[i+1:]...)
+			fmt.Println(storedlist)
 			// 删除 storedlist里面对这一项
 		}
 		flag = false
