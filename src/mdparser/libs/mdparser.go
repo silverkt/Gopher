@@ -87,6 +87,14 @@ func ScanFiles(dirpath string) []ArticleInfo {
 	return ArticleList
 }
 
+func WriteGob(data []ArticleInfo, filepath string) {
+	// 不管存不存在 list.gob文件， 不存在创建，存在就覆盖
+	file, _ := os.Create(filepath)
+	goben := gob.NewEncoder(file)
+	goben.Encode(data)
+	file.Close()
+}
+
 
 func CompareFiles(dirpath string) {
 	var ArticleList []ArticleInfo
@@ -112,11 +120,7 @@ func CompareFiles(dirpath string) {
 	}
 	if os.IsNotExist(err) {
 		//不存在 list.gob 处理
-		// 返回文件数据
-		file, _ := os.Create("../list.gob")
-		goben := gob.NewEncoder(file)
-		goben.Encode(list)
-		file.Close()
+		WriteGob(list, "../list.gob")
 	}
 }
 
@@ -127,6 +131,20 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 	var maxindex int
 
 
+
+	// 实际列表中有删除文件
+	for i, storeditem := range storedlist {
+		for _, realitem := range reallist {
+			if realitem.Name == storeditem.Name {
+				flag = true
+			}
+		}
+		if !flag {
+			storedlist = append(storedlist[:i], storedlist[i+1:]...)
+			// 删除 storedlist里面对这一项
+		}
+		flag = false
+	}
 	// 实际列表中有修改文件或者增加文件的情况
 	for _, realitem := range reallist {
 		for _, storeditem := range storedlist {
@@ -145,25 +163,12 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 		if !flag {
 			realitem.Id = maxindex + 1
 			extlist = append(extlist, realitem)	
-			//存入 storedlist	
 		} 
 		flag = false
 	}
 
-	// 实际列表中有删除文件
-	for i, storeditem := range storedlist {
-		for _, realitem := range reallist {
-			if realitem.Name == storeditem.Name {
-				flag = true
-			}
-		}
-		if !flag {
-			storedlist = append(storedlist[:i], storedlist[i+1:]...)
-			fmt.Println(storedlist)
-			// 删除 storedlist里面对这一项
-		}
-		flag = false
-	}
+	
+	
 
 	
 		 
