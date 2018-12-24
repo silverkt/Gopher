@@ -1,5 +1,6 @@
 /**
 所有模块包
+try to study gin
 */
 package libs
 
@@ -165,25 +166,8 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 			extlist = append(extlist, realitem)	
 		} 
 		flag = false
+
 	}
-
-	
-	
-
-	
-		 
-	
-
-	// if reallength <= storedlength { //实际列表中有删除文件的情况
-	// 	for _, storeditem := range storedlist {
-	// 		for _, realitem := range reallist {
-	// 			if
-	// 		}
-	// 	}
-
-	// }
-
-	
 	
 	
 	fmt.Println("===========")
