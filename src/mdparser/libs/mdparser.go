@@ -169,7 +169,7 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 
 	}
 	
-	
+	//不可荒废
 	fmt.Println("===========")
 	fmt.Println(extlist)
 	fmt.Println("============")
