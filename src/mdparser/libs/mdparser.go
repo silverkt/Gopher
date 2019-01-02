@@ -97,23 +97,26 @@ func WriteGob(data []ArticleInfo, filepath string) {
 }
 
 
-func CompareFiles(dirpath string) {
+func CompareFiles(dirpath string) []ArticleInfo {
 	var ArticleList []ArticleInfo
 	list := ScanFiles(dirpath)
-	_, err := os.Stat("../list.gob")
+	_, err := os.Stat("./list.gob")
 	if err == nil {
 		//存在 list.gob 处理
 		//对比 gob和读取的目录是否一致，一致则返回nil， 不一致则返回不一致文件的数据
-		file, _ := os.Open("../list.gob")
+		file, _ := os.Open("./list.gob")
 		gobde := gob.NewDecoder(file)
 		gobde.Decode(&ArticleList)
 		file.Close()
 
 		if reflect.DeepEqual(list, ArticleList){    //Equality for slices is not defined. slice can only be compared to nil
 			fmt.Println("same list")
+			return nil
 		} else {
 			fmt.Println("different list")
-			PickupChanges(list, ArticleList)
+			fmt.Println("stored List:", ArticleList)
+			fmt.Println("realdd List:", list)
+			return PickupChanges(list, ArticleList) 
 		}
 		fmt.Println("stored List:", ArticleList)
 		fmt.Println("realdd List:", list)
@@ -121,12 +124,16 @@ func CompareFiles(dirpath string) {
 	}
 	if os.IsNotExist(err) {
 		//不存在 list.gob 处理
-		WriteGob(list, "../list.gob")
+		WriteGob(list, "./list.gob")
+		return list
 	}
+	fmt.Println("应该永远泡不到这里")
+	return nil  //应该永远跑不到这里
+	
 }
 
 
-func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
+func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) []ArticleInfo {
 	var extlist []ArticleInfo  // 增量更新
 	var flag bool
 	var maxindex int
@@ -169,9 +176,12 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) {
 
 	}
 	
-	//
+	//更新stored gob
+	storedlist = append(storedlist, extlist...)
+	WriteGob(storedlist, "./list.gob")
 	fmt.Println("===========")
 	fmt.Println(extlist)
 	fmt.Println("===========")
+	return extlist
 	
 }

@@ -22,10 +22,10 @@ func main() {
 	index := Index{}
 	inner := Inner{}
 	fmt.Print("this is main")
-	data := libs.ReadMDFile("README.md")
+	data := libs.ReadMDFile("./mdfiles/README.md")
 	res := libs.MarkDownParser(data)
-	//fmt.Printf("%s",res)
-	libs.SaveHtmlFile("../abc.html", res)
+
+	libs.SaveHtmlFile("./public/abc.html", res)
 	index.Name = "index"
 	index.Content = template.HTML(string(res))
 
@@ -46,7 +46,11 @@ func main() {
 	// 	fmt.Println(i, item.Modtime)
 	// }
     //
-	libs.CompareFiles("./")
+	list := libs.CompareFiles("./mdfiles")
+
+	for i, item := range list {
+		fmt.Println(i, item.Name, item.Id)
+	}
 
 
 }
