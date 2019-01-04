@@ -179,7 +179,7 @@ func PickupChanges(reallist []ArticleInfo, storedlist []ArticleInfo) []ArticleIn
 	//更新stored gob
 	storedlist = append(storedlist, extlist...)
 	WriteGob(storedlist, "./list.gob")
-	fmt.Println("===========")
+	fmt.Println("========= ==")
 	fmt.Println(extlist)
 	fmt.Println("===========")
 	return extlist
