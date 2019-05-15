@@ -6,7 +6,7 @@ import (
 
 func Add(x, y int, ch chan int) {
 	z := x + y;
-	fmt.Println(z);
+	fmt.Println(z);// need to change to io
 	ch <- x;
 }
 
