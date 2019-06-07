@@ -15,7 +15,9 @@ create table student(
 	) DEFAULT CHARSET=utf8;
 */
 func main() {
-    db := opendb("root:12345678@tcp(localhost:3306)/gosqlx_db?charset=utf8mb4")
+    pwd := "12345678"
+    dbtable := "gosqlx_db"
+    db := opendb("root:"+pwd+"@tcp(localhost:3306)/"+dbtable+"?charset=utf8mb4")
     // id:=insert(db)
 	query(db)
 	//fmt.Println(id);

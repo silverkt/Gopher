@@ -28,8 +28,10 @@ create table student(
 
 func main() {
 	var err error
+	pwd := "12345678"
+	dbtable := "gosqlx_db"
 	dbw := DbWorker{
-		Dsn: "root:12345678@tcp(localhost:3306)/gosqlx_db?charset=utf8mb4",
+		Dsn: "root:"+pwd+"@tcp(localhost:3306)/"+dbtable+"?charset=utf8mb4",
 	}
 	dbw.Db, err = sql.Open("mysql", dbw.Dsn)
 	if err != nil {
