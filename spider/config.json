@@ -1,9 +1,9 @@
 {
-    "baseURL": "http://f.p02.space",
-    "attach": "/viewthread.php?tid=",
-    "regexp": "attachments/[a-zA-Z0-9]*(.jpg|.png|.gif)",
-    "from": "312628",
-    "to": "314999",
+    "baseURL": "http://f412.botkoplak.com",
+    "attach": "/viewthread.php?tid=211917&extra=page%3D2&page=",
+    "regexp": "attachments/+[a-zA-Z0-9]*(.jpg|.png|.gif)",
+    "from": "1",
+    "to": "51",
     "biginterval": "20",
     "sleeptime": "3",
     "pageinterval": "3"

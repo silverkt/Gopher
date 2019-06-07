@@ -81,7 +81,7 @@ func savePagedImg(res string, dir string, baseURL string, exp string) {
 		os.Mkdir(dir, os.ModePerm)
 	}
 	for index, value := range imgList {
-		imgList[index] = baseURL + "/" + value
+		imgList[index] = "http://pic.w26.rocks" + "/" + value
 		wg.Add(1) //协程计数加一
 		go saveRes(imgList[index], dir) //保存图片
 		fmt.Println(imgList[index])
